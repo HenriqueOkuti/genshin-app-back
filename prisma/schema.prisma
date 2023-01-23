@@ -132,6 +132,7 @@ model Elements {
   name       String       @db.VarChar(255)
   image      String       @db.VarChar(255)
   Characters Characters[]
+  Gems       Gems[]
 }
 
 model Enemies {
@@ -159,6 +160,8 @@ model Gems {
   image          String           @db.VarChar(255)
   text           String           @db.VarChar(255)
   rarity         Int
+  elementId      Int
+  Elements       Elements         @relation(fields: [elementId], references: [id])
   BossGems       BossGems[]
   WeeklyBossGems WeeklyBossGems[]
 }

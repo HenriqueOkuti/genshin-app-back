@@ -5,6 +5,7 @@ import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from './config/index';
 
+console.clear();
 loadEnv();
 
 const app = express();

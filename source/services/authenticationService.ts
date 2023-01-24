@@ -39,9 +39,34 @@ async function handleLogin({ email, password }: signUpBodyType) {
   return session.token;
 }
 
+async function handleGithub(name: string, email: string) {
+  const userInfo = await authRepository.findEmail(email);
+  if (!userInfo) {
+    const randomPassword = generatePassword();
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+    const newUser = await authRepository.createUser(email, hashedPassword, name);
+    const session = await authRepository.newSession(newUser.id);
+    return session.token;
+  } else {
+    const session = await authRepository.newSession(userInfo.id);
+    return session.token;
+  }
+}
+
+function generatePassword() {
+  let password = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (let i = 0; i < 64; i++) {
+    password += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return password;
+}
+
 const authService = {
   handleSignUp,
   handleLogin,
+  handleGithub,
 };
 
 export { authService };

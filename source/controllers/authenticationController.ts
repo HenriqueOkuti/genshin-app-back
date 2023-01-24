@@ -1,18 +1,28 @@
+import { authService } from '@/services';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 
 export async function SignUp(req: Request, res: Response) {
   try {
-    console.log('try');
-    return res.sendStatus(httpStatus.OK);
+    //try to create user
+    const user = await authService.handleSignUp(req.body);
+
+    return res.status(httpStatus.CREATED).send(user);
   } catch (error) {
+    if (error.name === 'InvalidCredentials') {
+      return res.status(httpStatus.BAD_REQUEST).send(error.message);
+    }
+    if (error.name === 'EmailInUse') {
+      return res.status(httpStatus.CONFLICT).send(error.message);
+    }
+
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }
 
 export async function Login(req: Request, res: Response) {
+  console.log('Login');
   try {
-    console.log('try');
     return res.sendStatus(httpStatus.OK);
   } catch (error) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -20,8 +30,8 @@ export async function Login(req: Request, res: Response) {
 }
 
 export async function LoginGithub(req: Request, res: Response) {
+  console.log('LoginGithub');
   try {
-    console.log('try');
     return res.sendStatus(httpStatus.OK);
   } catch (error) {
     return res.sendStatus(httpStatus.BAD_REQUEST);
@@ -29,8 +39,8 @@ export async function LoginGithub(req: Request, res: Response) {
 }
 
 export async function LoginGoogle(req: Request, res: Response) {
+  console.log('LoginGoogle');
   try {
-    console.log('try');
     return res.sendStatus(httpStatus.OK);
   } catch (error) {
     return res.sendStatus(httpStatus.BAD_REQUEST);

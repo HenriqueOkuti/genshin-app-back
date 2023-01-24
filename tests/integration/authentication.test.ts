@@ -1,5 +1,6 @@
 import app, { init } from '../../source/app';
 import faker from '@faker-js/faker';
+import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import supertest from 'supertest';
 import { cleanDb } from '../helpers';
@@ -59,9 +60,11 @@ describe('POST /login', () => {
     });
 
     it('should return status 200 and create a new token if it already exists', async () => {
+      const password = await bcrypt.hash(faker.internet.password(6), 10);
+
       const validBody = {
         email: faker.internet.email(),
-        password: faker.internet.password(6),
+        password: password,
       };
       const user = await createUser(validBody.email, validBody.password);
       const oldToken = await createSession(user.id);
@@ -74,10 +77,14 @@ describe('POST /login', () => {
     });
 
     it('should return status 200 and create a token if it does not exist', async () => {
+      const password = await bcrypt.hash(faker.internet.password(6), 10);
+
       const validBody = {
         email: faker.internet.email(),
-        password: faker.internet.password(6),
+        password: password,
       };
+      await createUser(validBody.email, validBody.password);
+
       const response = await server.post('/auth/login').send(validBody);
       expect(response.status).toBe(httpStatus.OK);
     });

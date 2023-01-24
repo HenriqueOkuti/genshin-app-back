@@ -78,14 +78,17 @@ module.exports = {
         },
       },
     ],
-    '@typescript-eslint/type-annotation-spacing': ['error', { after: true, before: false }],
+    '@typescript-eslint/type-annotation-spacing': [
+      'error',
+      { before: false, after: true, overrides: { arrow: { before: true, after: true } } },
+    ],
     'arrow-spacing': ['error', { before: true, after: true }],
     'no-console': 'warn',
     'boundaries/element-types': [
       2,
       {
         default: 'disallow',
-        message: '${file.type} não podem importar ${dependency.type}',
+        message: '${file.type} cant import ${dependency.type}',
         rules: [
           {
             from: ['controllers'],

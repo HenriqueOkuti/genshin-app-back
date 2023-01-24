@@ -11,3 +11,10 @@ export function emailInUseError() {
     message: 'email already in use',
   };
 }
+
+export function userNotFoundError() {
+  return {
+    name: 'UserNotFound',
+    message: 'user not found',
+  };
+}

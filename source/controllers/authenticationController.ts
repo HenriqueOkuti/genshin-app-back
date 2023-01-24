@@ -4,7 +4,6 @@ import httpStatus from 'http-status';
 
 export async function SignUp(req: Request, res: Response) {
   try {
-    //try to create user
     const user = await authService.handleSignUp(req.body);
 
     return res.status(httpStatus.CREATED).send(user);
@@ -21,10 +20,18 @@ export async function SignUp(req: Request, res: Response) {
 }
 
 export async function Login(req: Request, res: Response) {
-  console.log('Login');
   try {
-    return res.sendStatus(httpStatus.OK);
+    const token = await authService.handleLogin(req.body);
+
+    return res.status(httpStatus.OK).send({ token: token });
   } catch (error) {
+    if (error.name === 'UserNotFound') {
+      return res.sendStatus(httpStatus.NOT_FOUND);
+    }
+    if (error.name === 'InvalidCredentials') {
+      return res.sendStatus(httpStatus.UNAUTHORIZED);
+    }
+
     return res.sendStatus(httpStatus.BAD_REQUEST);
   }
 }

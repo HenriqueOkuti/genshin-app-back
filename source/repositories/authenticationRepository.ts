@@ -1,3 +1,4 @@
+import * as jwt from 'jsonwebtoken';
 import { prisma } from '../config/database';
 
 async function findEmail(email: string) {
@@ -19,9 +20,26 @@ async function createUser(email: string, password: string, name: string) {
   });
 }
 
+async function newSession(userId: number) {
+  const token = jwt.sign({ userId: userId }, process.env.JWT_SECRET);
+  return await prisma.session.upsert({
+    where: {
+      userId: userId,
+    },
+    create: {
+      userId: userId,
+      token: token,
+    },
+    update: {
+      token: token,
+    },
+  });
+}
+
 const authRepository = {
   findEmail,
   createUser,
+  newSession,
 };
 
 export { authRepository };

@@ -34,7 +34,7 @@ describe('POST /login', () => {
   });
 
   describe('When body is valid', () => {
-    it('should return status 401 when user is not registered', async () => {
+    it('should return status 404 when user is not registered', async () => {
       const validBody = {
         email: faker.internet.email(),
         password: faker.internet.password(6),
@@ -42,15 +42,17 @@ describe('POST /login', () => {
 
       const response = await server.post('/auth/login').send(validBody);
 
-      expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+      expect(response.status).toBe(httpStatus.NOT_FOUND);
     });
 
     it('should return status 401 when credentials are wrong, ', async () => {
+      const password = await bcrypt.hash(faker.internet.password(6), 10);
       const validBody = {
         email: faker.internet.email(),
         password: faker.internet.password(6),
       };
-      await createUser(validBody.email, validBody.password);
+
+      await createUser(validBody.email, password);
 
       validBody.password = faker.internet.password(7);
 
@@ -60,13 +62,14 @@ describe('POST /login', () => {
     });
 
     it('should return status 200 and create a new token if it already exists', async () => {
-      const password = await bcrypt.hash(faker.internet.password(6), 10);
+      const passwordBeforeHash = faker.internet.password(6);
+      const passwordAfterHash = await bcrypt.hash(passwordBeforeHash, 10);
 
       const validBody = {
         email: faker.internet.email(),
-        password: password,
+        password: passwordBeforeHash,
       };
-      const user = await createUser(validBody.email, validBody.password);
+      const user = await createUser(validBody.email, passwordAfterHash);
       const oldToken = await createSession(user.id);
 
       const response = await server.post('/auth/login').send(validBody);
@@ -77,13 +80,14 @@ describe('POST /login', () => {
     });
 
     it('should return status 200 and create a token if it does not exist', async () => {
-      const password = await bcrypt.hash(faker.internet.password(6), 10);
+      const passwordBeforeHash = faker.internet.password(6);
+      const passwordAfterHash = await bcrypt.hash(passwordBeforeHash, 10);
 
       const validBody = {
         email: faker.internet.email(),
-        password: password,
+        password: passwordBeforeHash,
       };
-      await createUser(validBody.email, validBody.password);
+      await createUser(validBody.email, passwordAfterHash);
 
       const response = await server.post('/auth/login').send(validBody);
       expect(response.status).toBe(httpStatus.OK);

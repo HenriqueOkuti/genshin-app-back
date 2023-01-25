@@ -15,6 +15,10 @@ beforeEach(async () => {
   await cleanDb();
 });
 
+afterEach(async () => {
+  await cleanDb();
+});
+
 const server = supertest(app);
 
 describe('GET /users/info', () => {
@@ -34,7 +38,7 @@ describe('GET /users/info', () => {
   describe('When token is valid', () => {
     it('should return status 200 and user info', async () => {
       const newUser = await generateUser();
-      const token = await generateValidToken();
+      const token = await generateValidToken(newUser);
 
       await generateSession(newUser.id, token);
 
@@ -45,7 +49,7 @@ describe('GET /users/info', () => {
       const response = await server.get('/users/info').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.OK);
-      expect(response.body).toBe({ newUser });
+      expect(response.body).toEqual({ id: newUser.id, name: newUser.name, email: newUser.email, image: newUser.image });
     });
   });
 });

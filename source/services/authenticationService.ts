@@ -1,4 +1,4 @@
-import { emailInUseError, invalidCredentialsError, userNotFoundError } from '@/errors';
+import { authErrors } from '@/errors';
 import { authRepository } from '@/repositories';
 import bcrypt from 'bcrypt';
 
@@ -11,13 +11,13 @@ type signUpBodyType = {
 
 async function handleSignUp({ name, email, password, confirmPassword }: signUpBodyType) {
   if (password !== confirmPassword) {
-    throw invalidCredentialsError();
+    throw authErrors.invalidCredentialsError();
   }
 
   const registeredEmail = await authRepository.findEmail(email);
 
   if (registeredEmail) {
-    throw emailInUseError();
+    throw authErrors.emailInUseError();
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -29,11 +29,11 @@ async function handleSignUp({ name, email, password, confirmPassword }: signUpBo
 async function handleLogin({ email, password }: signUpBodyType) {
   const userInfo = await authRepository.findEmail(email);
   if (!userInfo) {
-    throw userNotFoundError();
+    throw authErrors.userNotFoundError();
   }
   const validPassword = await bcrypt.compare(password, userInfo.password);
   if (!validPassword) {
-    throw invalidCredentialsError();
+    throw authErrors.invalidCredentialsError();
   }
   const session = await authRepository.newSession(userInfo.id);
   return session.token;

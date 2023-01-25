@@ -18,3 +18,11 @@ export function userNotFoundError() {
     message: 'user not found',
   };
 }
+
+const authErrors = {
+  invalidCredentialsError,
+  emailInUseError,
+  userNotFoundError,
+};
+
+export { authErrors };

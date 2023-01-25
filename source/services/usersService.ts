@@ -1,4 +1,4 @@
-import { userNotFoundError } from '@/errors';
+import { usersErrors } from '@/errors';
 import { usersRepository } from '@/repositories';
 
 async function handleFetchUserInfo(userId: number) {
@@ -6,7 +6,7 @@ async function handleFetchUserInfo(userId: number) {
   const userInfo = await usersRepository.findUserInfo(userId);
 
   if (!userInfo) {
-    throw userNotFoundError();
+    throw usersErrors.userNotFoundError();
   }
 
   return { id: userInfo.id, name: userInfo.name, email: userInfo.email, image: userInfo.image };

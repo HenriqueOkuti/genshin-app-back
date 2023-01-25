@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=development nodemon --watch 'source/' --exec 'ts-node -r tsconfig-paths/register ./source/server.ts' -e ts",
+    "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
+    "test:watch": "jest --watch --passWithNoTests --runInBand"
   },
   "keywords": [],
   "author": "",

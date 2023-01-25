@@ -187,7 +187,7 @@ model Session {
   userId    Int      @unique
   token     String   @db.VarChar(255)
   createdAt DateTime @default(now())
-  updatedAt DateTime
+  updatedAt DateTime @updatedAt
   Users     Users    @relation(fields: [userId], references: [id])
 }
 
@@ -207,7 +207,7 @@ model Tasks {
   name       String      @db.VarChar(255)
   taskInfoId Int
   createdAt  DateTime    @default(now())
-  updatedAt  DateTime
+  updatedAt  DateTime    @updatedAt
   TaskInfo   TaskInfo    @relation(fields: [taskInfoId], references: [id])
   UserTasks  UserTasks[]
 }
@@ -268,7 +268,7 @@ model Users {
   password       String           @db.VarChar(255)
   image          String           @default("https://i.redd.it/02qhtmulmjs71.jpg") @db.VarChar(255)
   createdAt      DateTime         @default(now())
-  updatedAt      DateTime
+  updatedAt      DateTime         @updatedAt
   Session        Session?
   UserBackpack   UserBackpack[]
   UserCharacters UserCharacters[]

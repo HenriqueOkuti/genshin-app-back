@@ -4,7 +4,7 @@ import express, { Express } from 'express';
 import cors from 'cors';
 
 import { loadEnv, connectDb, disconnectDB } from './config/index';
-import { authenticationRouter } from './routers';
+import { authenticationRouter, usersRouter } from './routers';
 
 console.clear();
 loadEnv();
@@ -14,7 +14,8 @@ app
   .use(cors())
   .use(express.json())
   .get('/health', (_req, res) => res.send('OK!'))
-  .use('/auth', authenticationRouter);
+  .use('/auth', authenticationRouter)
+  .use('/users', usersRouter);
 
 export function init(): Promise<Express> {
   connectDb();

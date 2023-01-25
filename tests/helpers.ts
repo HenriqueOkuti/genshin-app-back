@@ -52,3 +52,13 @@ export async function generateUser() {
 
   return await createUser(newUserData.email, newUserData.password);
 }
+
+export async function generateSession(userId: number, token: string) {
+  return await prisma.session.create({
+    data: {
+      userId: userId,
+      token: token,
+      updatedAt: new Date(),
+    },
+  });
+}

@@ -6,7 +6,10 @@ import { prisma } from '@/config';
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
   const authHeader = req.header('Authorization');
-  if (!authHeader) return generateUnauthorizedResponse(res);
+
+  if (!authHeader) {
+    return generateUnauthorizedResponse(res);
+  }
 
   const token = authHeader.split(' ')[1];
   if (!token) {
@@ -21,6 +24,7 @@ export async function validateToken(req: Request, res: Response, next: NextFunct
         token,
       },
     });
+
     if (!session) {
       return generateUnauthorizedResponse(res);
     }

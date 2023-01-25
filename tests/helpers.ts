@@ -1,4 +1,9 @@
+import * as jwt from 'jsonwebtoken';
+import faker from '@faker-js/faker';
+import bcrypt from 'bcrypt';
+import { Users } from '@prisma/client';
 import { prisma } from '../source/config/index';
+import { createUser } from './factories/authentication.factory';
 
 export async function cleanDb() {
   await prisma.session.deleteMany({});
@@ -32,4 +37,18 @@ export async function cleanDb() {
   await prisma.themes.deleteMany({});
 }
 
-//prisma.users.findMany({});
+export async function generateValidToken(user?: Users) {
+  const usedUser = user || (await generateUser());
+  const token = jwt.sign({ userId: usedUser.id }, process.env.JWT_SECRET);
+  return token;
+}
+
+export async function generateUser() {
+  const hashedPassword = await bcrypt.hash(faker.internet.password(6), 10);
+  const newUserData = {
+    email: faker.internet.email(),
+    password: hashedPassword,
+  };
+
+  return await createUser(newUserData.email, newUserData.password);
+}

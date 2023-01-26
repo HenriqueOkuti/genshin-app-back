@@ -6,6 +6,12 @@ import { prisma } from '../source/config/index';
 import { createUser } from './factories/authentication.factory';
 
 export async function cleanDb() {
+  await prisma.characterEnemyMats.deleteMany({});
+  await prisma.characterAscensions.deleteMany({});
+  await prisma.characterConstellations.deleteMany({});
+  await prisma.characterTalents.deleteMany({});
+  await prisma.characters.deleteMany({});
+
   await prisma.session.deleteMany({});
   await prisma.taskInfo.deleteMany({});
   await prisma.tasks.deleteMany({});
@@ -17,14 +23,15 @@ export async function cleanDb() {
   await prisma.elements.deleteMany({});
   await prisma.userCharacters.deleteMany({});
   await prisma.bossMats.deleteMany({});
+
+  await prisma.dungeonMats.deleteMany({});
+  await prisma.dungeons.deleteMany({});
+
   await prisma.region.deleteMany({});
   await prisma.localSpecialty.deleteMany({});
-  await prisma.characters.deleteMany({});
-  await prisma.characterAscensions.deleteMany({});
-  await prisma.characterConstellations.deleteMany({});
-  await prisma.dungeons.deleteMany({});
+
   await prisma.weapons.deleteMany({});
-  await prisma.dungeonMats.deleteMany({});
+
   await prisma.enemyMats.deleteMany({});
   await prisma.themeHexes.deleteMany({});
   await prisma.themes.deleteMany({});

@@ -19,33 +19,13 @@ model BackpackInfo {
   UserBackpack   UserBackpack[]
 }
 
-model BossGems {
-  id     Int    @id @default(autoincrement())
-  bossId Int
-  gemId  Int
-  Bosses Bosses @relation(fields: [bossId], references: [id])
-  Gems   Gems   @relation(fields: [gemId], references: [id])
-}
-
 model BossMats {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
   text       String       @db.VarChar(255)
   image      String       @db.VarChar(255)
   bossId     Int
-  Bosses     Bosses       @relation(fields: [bossId], references: [id])
   Characters Characters[]
-}
-
-model Bosses {
-  id       Int        @id @default(autoincrement())
-  name     String     @db.VarChar(255)
-  text     String     @db.VarChar(255)
-  image    String     @db.VarChar(255)
-  regionId Int
-  Region   Region     @relation(fields: [regionId], references: [id])
-  BossGems BossGems[]
-  BossMats BossMats[]
 }
 
 model CharacterAscensions {
@@ -132,15 +112,6 @@ model Elements {
   name       String       @db.VarChar(255)
   image      String       @db.VarChar(255)
   Characters Characters[]
-  Gems       Gems[]
-}
-
-model Enemies {
-  id        Int         @id @default(autoincrement())
-  name      String      @db.VarChar(255)
-  text      String      @db.VarChar(255)
-  image     String      @db.VarChar(255)
-  EnemyMats EnemyMats[]
 }
 
 model EnemyMats {
@@ -150,20 +121,16 @@ model EnemyMats {
   image      String       @db.VarChar(255)
   rarity     Int
   enemyId    Int
-  Enemies    Enemies      @relation(fields: [enemyId], references: [id])
   Characters Characters[]
 }
 
 model Gems {
-  id             Int              @id @default(autoincrement())
-  name           String           @db.VarChar(255)
-  image          String           @db.VarChar(255)
-  text           String           @db.VarChar(255)
-  rarity         Int
-  elementId      Int
-  Elements       Elements         @relation(fields: [elementId], references: [id])
-  BossGems       BossGems[]
-  WeeklyBossGems WeeklyBossGems[]
+  id        Int    @id @default(autoincrement())
+  name      String @db.VarChar(255)
+  image     String @db.VarChar(255)
+  text      String @db.VarChar(255)
+  rarity    Int
+  elementId Int
 }
 
 model LocalSpecialty {
@@ -175,11 +142,9 @@ model LocalSpecialty {
 }
 
 model Region {
-  id           Int            @id @default(autoincrement())
-  name         String         @db.VarChar(255)
-  Bosses       Bosses[]
-  Dungeons     Dungeons[]
-  WeeklyBosses WeeklyBosses[]
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(255)
+  Dungeons Dungeons[]
 }
 
 model Session {
@@ -282,31 +247,11 @@ model Weapons {
   Characters Characters[]
 }
 
-model WeeklyBossGems {
-  id           Int          @id @default(autoincrement())
-  weeklyBossId Int
-  gemId        Int
-  Gems         Gems         @relation(fields: [gemId], references: [id])
-  WeeklyBosses WeeklyBosses @relation(fields: [weeklyBossId], references: [id])
-}
-
 model WeeklyBossMats {
   id           Int          @id @default(autoincrement())
   name         String       @db.VarChar(255)
   text         String       @db.VarChar(255)
   image        String       @db.VarChar(255)
   weeklyBossId Int
-  WeeklyBosses WeeklyBosses @relation(fields: [weeklyBossId], references: [id])
   Characters   Characters[]
-}
-
-model WeeklyBosses {
-  id             Int              @id @default(autoincrement())
-  name           String           @db.VarChar(255)
-  text           String           @db.VarChar(255)
-  image          String           @db.VarChar(255)
-  regionId       Int
-  Region         Region           @relation(fields: [regionId], references: [id])
-  WeeklyBossGems WeeklyBossGems[]
-  WeeklyBossMats WeeklyBossMats[]
 }

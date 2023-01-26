@@ -1,0 +1,1174 @@
+{
+ "talentDungeons": {
+  "forsaken_rift": {
+   "books": {
+    "teachings_of_freedom": {
+     "items": {
+      "name": "Freedom",
+      "items": [
+       {
+        "id": "teachings_of_freedom",
+        "name": "Teachings of Freedom",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_freedom",
+        "name": "Guide to Freedom",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_freedom"
+       },
+       {
+        "id": "philosophies_of_freedom",
+        "name": "Philosophies of Freedom",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_freedom"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "teachings_of_resistance": {
+     "items": {
+      "name": "Resistance",
+      "items": [
+       {
+        "id": "teachings_of_resistance",
+        "name": "Teachings of Resistance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_resistance",
+        "name": "Guide to Resistance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_resistance"
+       },
+       {
+        "id": "philosophies_of_resistance",
+        "name": "Philosophies of Resistance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_resistance"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "teachings_of_ballad": {
+     "items": {
+      "name": "Ballad",
+      "items": [
+       {
+        "id": "teachings_of_ballad",
+        "name": "Teachings of Ballad",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_ballad",
+        "name": "Guide to Ballad",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_ballad"
+       },
+       {
+        "id": "philosophies_of_ballad",
+        "name": "Philosophies of Ballad",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_ballad"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Mondstadt",
+   "name": "Forsaken Rift",
+   "text": "It is said in ancient times, people would venture into the valley to seek out the ancient tree on the altar. They would whisper their secrets into the tree hole, relieving themselves of the burden of keeping the secrets to themselves. The Forsaken Rift is filled with long-forgotten secrets."
+  },
+  "taishan_mansion": {
+   "books": {
+    "teachings_of_prosperity": {
+     "items": {
+      "name": "Prosperity",
+      "items": [
+       {
+        "id": "teachings_of_prosperity",
+        "name": "Teachings of Prosperity",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_prosperity",
+        "name": "Guide to Prosperity",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_prosperity"
+       },
+       {
+        "id": "philosophies_of_prosperity",
+        "name": "Philosophies of Prosperity",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_prosperity"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "teachings_of_diligence": {
+     "items": {
+      "name": "Diligence",
+      "items": [
+       {
+        "id": "teachings_of_diligence",
+        "name": "Teachings of Diligence",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_diligence",
+        "name": "Guide to Diligence",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_diligence"
+       },
+       {
+        "id": "philosophies_of_diligence",
+        "name": "Philosophies of Diligence",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_diligence"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "teachings_of_gold": {
+     "items": {
+      "name": "Gold",
+      "items": [
+       {
+        "id": "teachings_of_gold",
+        "name": "Teachings of Gold",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_gold",
+        "name": "Guide to Gold",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_gold"
+       },
+       {
+        "id": "philosophies_of_gold",
+        "name": "Philosophies of Gold",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_gold"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Liyue",
+   "name": "Taishan Mansion",
+   "text": "Once, people who sought the path of the adepti had to pass the trials of heavens and earth. Taishan Mansion served as the trial of \"earth.\" Now that the adepti have long departed from this realm, Taishan Mansion has also turned into a common treasure trove."
+  },
+  "violet_court": {
+   "books": {
+    "teachings_of_transience": {
+     "items": {
+      "name": "Transience",
+      "items": [
+       {
+        "id": "teachings_of_transience",
+        "name": "Teachings of Transience",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_transience",
+        "name": "Guide to Transience",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_transience"
+       },
+       {
+        "id": "philosophies_of_transience",
+        "name": "Philosophies of Transience",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_transience"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "teachings_of_elegance": {
+     "items": {
+      "name": "Elegance",
+      "items": [
+       {
+        "id": "teachings_of_elegance",
+        "name": "Teachings of Elegance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_elegance",
+        "name": "Guide to Elegance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_elegance"
+       },
+       {
+        "id": "philosophies_of_elegance",
+        "name": "Philosophies of Elegance",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_elegance"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "teachings_of_light": {
+     "items": {
+      "name": "Light",
+      "items": [
+       {
+        "id": "teachings_of_light",
+        "name": "Teachings of Light",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_light",
+        "name": "Guide to Light",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_light"
+       },
+       {
+        "id": "philosophies_of_light",
+        "name": "Philosophies of Light",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_light"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Inazuma",
+   "name": "Violet Court",
+   "text": "Sometime in the ancient past, the mountains rose higher than the skies, and the earth was larger than heaven's dome. But one day, the mirror shattered, and the oceans arose. In these legends, this caused the court of the primeval sakura to become sundered from the other islands."
+  },
+  "steeple_of_ignorance": {
+   "books": {
+    "teachings_of_admonition": {
+     "items": {
+      "name": "Admonition",
+      "items": [
+       {
+        "id": "teachings_of_admonition",
+        "name": "Teachings of Admonition",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_admonition",
+        "name": "Guide to Admonition",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_admonition"
+       },
+       {
+        "id": "philosophies_of_admonition",
+        "name": "Philosophies of Admonition",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_admonition"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "teachings_of_ingenuity": {
+     "items": {
+      "name": "Ingenuity",
+      "items": [
+       {
+        "id": "teachings_of_ingenuity",
+        "name": "Teachings of Ingenuity",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_ingenuity",
+        "name": "Guide to Ingenuity",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_ingenuity"
+       },
+       {
+        "id": "philosophies_of_ingenuity",
+        "name": "Philosophies of Ingenuity",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_ingenuity"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "teachings_of_praxis": {
+     "items": {
+      "name": "Praxis",
+      "items": [
+       {
+        "id": "teachings_of_praxis",
+        "name": "Teachings of Praxis",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2
+       },
+       {
+        "id": "guide_to_praxis",
+        "name": "Guide to Praxis",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "teachings_of_praxis"
+       },
+       {
+        "id": "philosophies_of_praxis",
+        "name": "Philosophies of Praxis",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "teachings_of_praxis"
+       }
+      ],
+      "type": "book"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Sumeru",
+   "name": "Steeple of Ignorance",
+   "text": "In the ancient past, man-made towers that could touch the skies were built all across the land. Though human hearts flowed downward, their souls aspired toward the high heavens. These towers would always fall, or collapse under their own weight and plummet into the depths. However, if one were to look at things at a grander scale, the heavens and earth are as one — no direction is truly different from another."
+  }
+ },
+ "weaponDungeons": {
+  "cecilia_garden": {
+   "books": {
+    "tile_of_decarabians_tower": {
+     "items": {
+      "name": "Decarabian",
+      "items": [
+       {
+        "id": "tile_of_decarabians_tower",
+        "name": "Tile of Decarabian's Tower",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "debris_of_decarabians_city",
+        "name": "Debris of Decarabian's City",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2,
+        "parent": "tile_of_decarabians_tower"
+       },
+       {
+        "id": "fragment_of_decarabians_epic",
+        "name": "Fragment of Decarabian's Epic",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "tile_of_decarabians_tower"
+       },
+       {
+        "id": "scattered_piece_of_decarabians_dream",
+        "name": "Scattered Piece of Decarabian's Dream",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "tile_of_decarabians_tower"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "boreal_wolfs_milk_tooth": {
+     "items": {
+      "name": "Boreal Wolf",
+      "items": [
+       {
+        "id": "boreal_wolfs_milk_tooth",
+        "name": "Boreal Wolf's Milk Tooth",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "boreal_wolfs_cracked_tooth",
+        "name": "Boreal Wolf's Cracked Tooth",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2,
+        "parent": "boreal_wolfs_milk_tooth"
+       },
+       {
+        "id": "boreal_wolfs_broken_fang",
+        "name": "Boreal Wolf's Broken Fang",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "boreal_wolfs_milk_tooth"
+       },
+       {
+        "id": "boreal_wolfs_nostalgia",
+        "name": "Boreal Wolf's Nostalgia",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "boreal_wolfs_milk_tooth"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "fetters_of_the_dandelion_gladiator": {
+     "items": {
+      "name": "Dandelion Gladiator",
+      "items": [
+       {
+        "id": "fetters_of_the_dandelion_gladiator",
+        "name": "Fetters of the Dandelion Gladiator",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "chains_of_the_dandelion_gladiator",
+        "name": "Chains of the Dandelion Gladiator",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2,
+        "parent": "fetters_of_the_dandelion_gladiator"
+       },
+       {
+        "id": "shackles_of_the_dandelion_gladiator",
+        "name": "Shackles of the Dandelion Gladiator",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "fetters_of_the_dandelion_gladiator"
+       },
+       {
+        "id": "dream_of_the_dandelion_gladiator",
+        "name": "Dream of the Dandelion Gladiator",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "fetters_of_the_dandelion_gladiator"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Mondstadt",
+   "name": "Cecilia Garden",
+   "text": "The Cecilia flowers that only grow on high cliffs once bloomed in the greenhouses here. The ancient civilization that once enjoyed the scent of the Cecilia was lost, and so too was the sea of white flowers."
+  },
+  "hidden_palace_of_lianshan_formula": {
+   "books": {
+    "luminous_sands_from_guyun": {
+     "items": {
+      "name": "Guyun",
+      "items": [
+       {
+        "id": "luminous_sands_from_guyun",
+        "name": "Luminous Sands from Guyun",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "lustrous_stone_from_guyun",
+        "name": "Lustrous Stone from Guyun",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2,
+        "parent": "luminous_sands_from_guyun"
+       },
+       {
+        "id": "relic_from_guyun",
+        "name": "Relic from Guyun",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "luminous_sands_from_guyun"
+       },
+       {
+        "id": "divine_body_from_guyun",
+        "name": "Divine Body from Guyun",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "luminous_sands_from_guyun"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "mist_veiled_lead_elixir": {
+     "items": {
+      "name": "Mist Veiled Elixir",
+      "items": [
+       {
+        "id": "mist_veiled_lead_elixir",
+        "name": "Mist Veiled Lead Elixir",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "mist_veiled_mercury_elixir",
+        "name": "Mist Veiled Mercury Elixir",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2,
+        "parent": "mist_veiled_lead_elixir"
+       },
+       {
+        "id": "mist_veiled_gold_elixir",
+        "name": "Mist Veiled Gold Elixir",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "mist_veiled_lead_elixir"
+       },
+       {
+        "id": "mist_veiled_primo_elixir",
+        "name": "Mist Veiled Primo Elixir",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "mist_veiled_lead_elixir"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "grain_of_aerosiderite": {
+     "items": {
+      "name": "Aerosiderite",
+      "items": [
+       {
+        "id": "grain_of_aerosiderite",
+        "name": "Grain of Aerosiderite",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "piece_of_aerosiderite",
+        "name": "Piece of Aerosiderite",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2,
+        "parent": "grain_of_aerosiderite"
+       },
+       {
+        "id": "bit_of_aerosiderite",
+        "name": "Bit of Aerosiderite",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "grain_of_aerosiderite"
+       },
+       {
+        "id": "chunk_of_aerosiderite",
+        "name": "Chunk of Aerosiderite",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "grain_of_aerosiderite"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Liyue",
+   "name": "Hidden Palace of Lianshan Formula",
+   "text": "The operation of the Lianshan Formula created endless thunderstorms within the bowels of the mountain. It is said that the rumbling sounds of thunder that one hears outside the domain's gates call out to the curious souls."
+  },
+  "court_of_flowing_sand": {
+   "books": {
+    "coral_branch_of_a_distant_sea": {
+     "items": {
+      "name": "Distant Sea",
+      "items": [
+       {
+        "id": "coral_branch_of_a_distant_sea",
+        "name": "Coral Branch of a Distant Sea",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "jeweled_branch_of_a_distant_sea",
+        "name": "Jeweled Branch of a Distant Sea",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2,
+        "parent": "coral_branch_of_a_distant_sea"
+       },
+       {
+        "id": "jade_branch_of_a_distant_sea",
+        "name": "Jade Branch of a Distant Sea",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "coral_branch_of_a_distant_sea"
+       },
+       {
+        "id": "golden_branch_of_a_distant_sea",
+        "name": "Golden Branch of a Golden Sea",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "coral_branch_of_a_distant_sea"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "narukamis_wisdom": {
+     "items": {
+      "name": "Narukami",
+      "items": [
+       {
+        "id": "narukamis_wisdom",
+        "name": "Narukami's Wisdom",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "narukamis_joy",
+        "name": "Narukami's Joy",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2,
+        "parent": "narukamis_wisdom"
+       },
+       {
+        "id": "narukamis_affection",
+        "name": "Narukami's Affection",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "narukamis_wisdom"
+       },
+       {
+        "id": "narukamis_valor",
+        "name": "Narukami's Valor",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "narukamis_wisdom"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "mask_of_the_wicked_lieutenant": {
+     "items": {
+      "name": "Mask",
+      "items": [
+       {
+        "id": "mask_of_the_wicked_lieutenant",
+        "name": "Mask of the Wicked Lieutenant",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "mask_of_the_tigers_bite",
+        "name": "Mask of the Tiger's Bite",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2,
+        "parent": "mask_of_the_wicked_lieutenant"
+       },
+       {
+        "id": "mask_of_the_one_horned",
+        "name": "Mask of the One-Horned",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "mask_of_the_wicked_lieutenant"
+       },
+       {
+        "id": "mask_of_the_kijin",
+        "name": "Mask of the Kijin",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "mask_of_the_wicked_lieutenant"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Inazuma",
+   "name": "Court of Flowing Sand",
+   "text": "They say that in antediluvian times now lost to history, there was once a foolish ruler who dreamed of building a high garden in honor of the white sacred tree over the primordial sands. Now, dead silence fills the kingdom built on sand, but the obsessions of the past remain."
+  },
+  "tower_of_abject_pride": {
+   "books": {
+    "copper_talisman_of_the_forest_dew": {
+     "items": {
+      "name": "Forest Dew",
+      "items": [
+       {
+        "id": "copper_talisman_of_the_forest_dew",
+        "name": "Copper Talisman of the Forest Dew",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "iron_talisman_of_the_forest_dew",
+        "name": "Iron Talisman of the Forest Dew",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 2,
+        "parent": "copper_talisman_of_the_forest_dew"
+       },
+       {
+        "id": "silver_talisman_of_the_forest_dew",
+        "name": "Silver Talisman of the Forest Dew",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 3,
+        "parent": "copper_talisman_of_the_forest_dew"
+       },
+       {
+        "id": "golden_talisman_of_the_forest_dew",
+        "name": "Golden Talisman of the Forest Dew",
+        "day": [
+         "monday",
+         "thursday"
+        ],
+        "rarity": 4,
+        "parent": "copper_talisman_of_the_forest_dew"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "monday",
+      "thursday"
+     ]
+    },
+    "oasis_gardens_reminiscence": {
+     "items": {
+      "name": "Oasis Garden",
+      "items": [
+       {
+        "id": "oasis_gardens_reminiscence",
+        "name": "Oasis Garden's Reminiscence",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "oasis_gardens_kindness",
+        "name": "Oasis Garden's Kindness",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 2,
+        "parent": "oasis_gardens_reminiscence"
+       },
+       {
+        "id": "oasis_gardens_mourning",
+        "name": "Oasis Garden's Mourning",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 3,
+        "parent": "oasis_gardens_reminiscence"
+       },
+       {
+        "id": "oasis_gardens_truth",
+        "name": "Oasis Garden's Truth",
+        "day": [
+         "tuesday",
+         "friday"
+        ],
+        "rarity": 4,
+        "parent": "oasis_gardens_reminiscence"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "tuesday",
+      "friday"
+     ]
+    },
+    "echo_of_scorching_might": {
+     "items": {
+      "name": "Scorching Might",
+      "items": [
+       {
+        "id": "echo_of_scorching_might",
+        "name": "Echo of Scorching Might",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 1
+       },
+       {
+        "id": "remnant_glow_of_scorching_might",
+        "name": "Remnant Glow of Scorching Might",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 2,
+        "parent": "echo_of_scorching_might"
+       },
+       {
+        "id": "dream_of_scorching_might",
+        "name": "Dream of Scorching Might",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 3,
+        "parent": "echo_of_scorching_might"
+       },
+       {
+        "id": "olden_days_of_scorching_might",
+        "name": "Olden Days of Scorching Might",
+        "day": [
+         "wednesday",
+         "saturday"
+        ],
+        "rarity": 4,
+        "parent": "echo_of_scorching_might"
+       }
+      ],
+      "type": "weapon"
+     },
+     "day": [
+      "wednesday",
+      "saturday"
+     ]
+    }
+   },
+   "image": null,
+   "region": "Sumeru",
+   "name": "Tower of Abject Pride",
+   "text": "It is said that the deserts were once home to three sage-kings, one of whom remained lovely and wise till the very end. They parted ways eventually for the sake of the paradise they sought in their hearts. This place is called a \"tower,\" but in truth was the temporary residence of one of these people when they were building that earthly paradise. If one stretches the past back even further, it was once a small shrine built to avoid the wind and the sand."
+  }
+ }
+}

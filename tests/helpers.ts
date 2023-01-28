@@ -6,6 +6,11 @@ import { prisma } from '../source/config/index';
 import { createUser } from './factories/authentication.factory';
 
 export async function cleanDb() {
+  await prisma.userAscensions.deleteMany({});
+  await prisma.userConstellations.deleteMany({});
+  await prisma.userTalents.deleteMany({});
+  await prisma.userCharacters.deleteMany({});
+
   await prisma.characterEnemyMats.deleteMany({});
   await prisma.characterAscensions.deleteMany({});
   await prisma.characterConstellations.deleteMany({});
@@ -21,7 +26,7 @@ export async function cleanDb() {
   await prisma.gems.deleteMany({});
   await prisma.users.deleteMany({});
   await prisma.elements.deleteMany({});
-  await prisma.userCharacters.deleteMany({});
+
   await prisma.bossMats.deleteMany({});
 
   await prisma.dungeonMats.deleteMany({});

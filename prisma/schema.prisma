@@ -30,25 +30,22 @@ model BossMats {
 }
 
 model CharacterAscensions {
-  id             Int              @id @default(autoincrement())
-  characterId    Int
-  title          String           @db.VarChar(255)
-  text           String
-  image          String           @db.VarChar(255)
-  Characters     Characters       @relation(fields: [characterId], references: [id])
-  UserAscensions UserAscensions[]
+  id          Int        @id @default(autoincrement())
+  characterId Int
+  title       String     @db.VarChar(255)
+  text        String
+  image       String     @db.VarChar(255)
+  Characters  Characters @relation(fields: [characterId], references: [id])
 }
 
 model CharacterConstellations {
-  id                 Int                  @id @default(autoincrement())
-  characterId        Int
-  number             Int
-  title              String               @db.VarChar(255)
-  text               String
-  image              String               @db.VarChar(255)
-  value              Int
-  Characters         Characters           @relation(fields: [characterId], references: [id])
-  UserConstellations UserConstellations[]
+  id          Int        @id @default(autoincrement())
+  characterId Int
+  number      Int
+  title       String     @db.VarChar(255)
+  text        String
+  image       String     @db.VarChar(255)
+  Characters  Characters @relation(fields: [characterId], references: [id])
 }
 
 model CharacterTalents {
@@ -84,6 +81,7 @@ model Characters {
   CharacterEnemyMats      CharacterEnemyMats[]
   CharacterTalents        CharacterTalents[]
   UserCharacters          UserCharacters[]
+  UserTalents             UserTalents[]
 }
 
 model DungeonMats {
@@ -209,19 +207,16 @@ model UserBackpack {
 }
 
 model UserCharacters {
-  id                     Int                @id @default(autoincrement())
-  userId                 Int
-  characterId            Int
-  level                  Int                @default(1)
-  userCharTalents        Int
-  userCharAscensions     Int
-  userCharConstellations Int
-  friendship             Int                @default(1)
-  Characters             Characters         @relation(fields: [characterId], references: [id])
-  UserAscensions         UserAscensions     @relation(fields: [userCharAscensions], references: [id])
-  UserConstellations     UserConstellations @relation(fields: [userCharConstellations], references: [id])
-  UserTalents            UserTalents        @relation(fields: [userCharTalents], references: [id])
-  Users                  Users              @relation(fields: [userId], references: [id])
+  id                 Int                  @id @default(autoincrement())
+  userId             Int
+  characterId        Int
+  level              Int                  @default(1)
+  friendship         Int                  @default(1)
+  Characters         Characters           @relation(fields: [characterId], references: [id])
+  Users              Users                @relation(fields: [userId], references: [id])
+  UserAscensions     UserAscensions[]
+  UserCharTalents    UserCharTalents[]
+  UserConstellations UserConstellations[]
 }
 
 model UserTasks {
@@ -243,6 +238,7 @@ model Users {
   Session            Session?
   UserAscensions     UserAscensions[]
   UserBackpack       UserBackpack[]
+  UserCharTalents    UserCharTalents[]
   UserCharacters     UserCharacters[]
   UserConstellations UserConstellations[]
   UserTalents        UserTalents[]
@@ -265,33 +261,34 @@ model WeeklyBossMats {
 }
 
 model UserAscensions {
-  id                  Int                 @id @default(autoincrement())
-  userId              Int
-  ascensionId         Int
-  value               Int                 @default(1)
-  CharacterAscensions CharacterAscensions @relation(fields: [ascensionId], references: [id])
-  Users               Users               @relation(fields: [userId], references: [id])
-  UserCharacters      UserCharacters[]
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  userCharacterId Int
+  value           Int            @default(1)
+  UserCharacters  UserCharacters @relation(fields: [userCharacterId], references: [id])
+  Users           Users          @relation(fields: [userId], references: [id])
 }
 
 model UserConstellations {
-  id                      Int                     @id @default(autoincrement())
-  userId                  Int
-  constellationId         Int
-  value                   Int                     @default(1)
-  CharacterConstellations CharacterConstellations @relation(fields: [constellationId], references: [id])
-  Users                   Users                   @relation(fields: [userId], references: [id])
-  UserCharacters          UserCharacters[]
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  userCharacterId Int
+  value           Int            @default(1)
+  UserCharacters  UserCharacters @relation(fields: [userCharacterId], references: [id])
+  Users           Users          @relation(fields: [userId], references: [id])
 }
 
 model UserTalents {
-  id               Int              @id @default(autoincrement())
+  id               Int               @id @default(autoincrement())
   userId           Int
+  userCharacterId  Int
+  characterId      Int
   talentId         Int
-  value            Int              @default(1)
-  CharacterTalents CharacterTalents @relation(fields: [talentId], references: [id])
-  Users            Users            @relation(fields: [userId], references: [id])
-  UserCharacters   UserCharacters[]
+  value            Int               @default(1)
+  Characters       Characters        @relation(fields: [characterId], references: [id])
+  CharacterTalents CharacterTalents  @relation(fields: [talentId], references: [id])
+  Users            Users             @relation(fields: [userId], references: [id])
+  UserCharTalents  UserCharTalents[]
 }
 
 model CharacterEnemyMats {
@@ -300,4 +297,14 @@ model CharacterEnemyMats {
   enemyMatId  Int
   Characters  Characters @relation(fields: [characterId], references: [id])
   EnemyMats   EnemyMats  @relation(fields: [enemyMatId], references: [id])
+}
+
+model UserCharTalents {
+  id              Int            @id @default(autoincrement())
+  userId          Int
+  userCharacterId Int
+  userTalentId    Int
+  UserCharacters  UserCharacters @relation(fields: [userCharacterId], references: [id], map: "UserTalents_userCharacterId_fkey")
+  Users           Users          @relation(fields: [userId], references: [id], map: "UserTalents_userId_fkey")
+  UserTalents     UserTalents    @relation(fields: [userTalentId], references: [id], map: "UserTalents_userTalentId_fkey")
 }

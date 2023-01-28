@@ -489,7 +489,7 @@ async function main() {
     await prisma.characterTalents.create({
       data: {
         characterId: characterCreated.id,
-        number: 2,
+        number: 3,
         title: talents.burst.title,
         text: talents.burst.text,
         image: talents.burst.image,
@@ -497,9 +497,6 @@ async function main() {
     });
 
     //insert characterConstellations
-    //func here
-    //console.log(constellations);
-
     for (const [key, value] of Object.entries(constellations)) {
       await prisma.characterConstellations.create({
         data: {
@@ -508,7 +505,6 @@ async function main() {
           title: value.title,
           text: value.text,
           image: value.image,
-          value: value.number, //redundant -> remove from DB
         },
       });
     }

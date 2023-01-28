@@ -41,9 +41,36 @@ async function handleCreateCharacters(userId: number, newCharacter: postRequest)
   return createdCharacter;
 }
 
+export type updateRequest = {
+  userCharacterId: number;
+  characterId: number;
+  level: number;
+  friendship: number;
+  constellations: number;
+  talents: { normal: number; skill: number; burst: number };
+};
+
+async function handleUpdateCharacters(userId: number, userCharacter: updateRequest) {
+  const currentUserCharacter = await charactersRepository.findUserCharacterViaID(userCharacter.userCharacterId, userId);
+
+  if (!currentUserCharacter) {
+    throw charactersErrors.notFoundError();
+  }
+
+  const character = await charactersRepository.findCharacter(userCharacter.characterId);
+  if (!character) {
+    throw charactersErrors.notFoundError();
+  }
+
+  //update values
+  const updatedChar = await charactersRepository.updateUserCharacter(userId, userCharacter, currentUserCharacter);
+  return updatedChar;
+}
+
 const charactersService = {
   handleFetchCharacters,
   handleCreateCharacters,
+  handleUpdateCharacters,
 };
 
 export { charactersService };

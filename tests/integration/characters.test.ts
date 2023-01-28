@@ -580,7 +580,7 @@ describe('PUT /characters/user', () => {
 
     describe('When everything is valid', () => {
       //
-      it('should return status 201 when everything is fine', async () => {
+      it('should return status 200 when everything is fine', async () => {
         const newUser = await generateUser();
         const token = await generateValidToken(newUser);
         const character = await createCharacterWithDetails();
@@ -680,7 +680,7 @@ describe('DELETE /characters/user', () => {
         userCharacterId: 0,
       };
 
-      const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
+      const response = await server.delete('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
@@ -710,6 +710,42 @@ describe('DELETE /characters/user', () => {
       //
     });
 
+    //
+  });
+});
+
+describe('GET /characters/all', () => {
+  it('should return status 401 when token is not given', async () => {
+    const response = await server.get('/characters/user');
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  it('should return status 401 when token is not valid', async () => {
+    const headers = {
+      Authorization: `Bearer ${faker.lorem.word()}`,
+    };
+    const response = await server.get('/characters/all').set('Authorization', headers.Authorization);
+    expect(response.status).toBe(httpStatus.UNAUTHORIZED);
+  });
+
+  describe('When token is valid', () => {
+    it('should return status 200 and characters inside an array', async () => {
+      const newUser = await generateUser();
+      const token = await generateValidToken(newUser);
+      const character = await createCharacter();
+      //console.log()
+      //also needs: talents + ascensions + constellations
+
+      await generateSession(newUser.id, token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const response = await server.get('/characters/all').set('Authorization', headers.Authorization);
+
+      expect(response.status).toBe(httpStatus.OK);
+      //expect(response.body).toEqual({ message: null, characters: [userCharacter] });
+    });
     //
   });
 });

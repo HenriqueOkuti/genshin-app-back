@@ -1,20 +1,28 @@
-export function characterNotFoundError() {
+function characterNotFoundError() {
   return {
     name: 'CharacterNotFound',
     message: 'character not found',
   };
 }
 
-export function characterAlreadyCreatedError() {
+function characterAlreadyCreatedError() {
   return {
     name: 'CharacterConflict',
     message: 'user already inserted character',
   };
 }
 
+function notFoundError() {
+  return {
+    name: 'NotFoundError',
+    message: 'info not found',
+  };
+}
+
 const charactersErrors = {
   characterNotFoundError,
   characterAlreadyCreatedError,
+  notFoundError,
 };
 
 export { charactersErrors };

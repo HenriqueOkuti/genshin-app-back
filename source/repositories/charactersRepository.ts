@@ -1,5 +1,13 @@
 import { prisma } from '@/config';
-import { CharacterAscensions, UserAscensions, UserCharacters, UserConstellations, UserTalents } from '@prisma/client';
+import { postRequest } from '@/services';
+import {
+  CharacterAscensions,
+  Characters,
+  UserAscensions,
+  UserCharacters,
+  UserConstellations,
+  UserTalents,
+} from '@prisma/client';
 
 async function userCharacters(userId: number) {
   return await prisma.userCharacters.findMany({
@@ -97,6 +105,124 @@ export type FixedCharacterType = {
   friendship: number;
 };
 
-const charactersRepository = { userCharacters, fillUserCharacterDetails };
+async function findCharacter(characterId: number) {
+  return await prisma.characters.findFirst({
+    where: {
+      id: characterId,
+    },
+  });
+}
+
+async function findUserCharacter(characterId: number, userId: number) {
+  return await prisma.userCharacters.findFirst({
+    where: {
+      userId: userId,
+      characterId: characterId,
+    },
+  });
+}
+
+async function createUserCharacter(userId: number, newCharacter: postRequest, character: Characters) {
+  //
+
+  const talents = await prisma.characterTalents.findMany({
+    where: {
+      characterId: character.id,
+    },
+  });
+
+  const ascensions = await prisma.characterAscensions.findMany({
+    where: {
+      characterId: character.id,
+    },
+  });
+
+  const constellations = await prisma.characterConstellations.findMany({
+    where: {
+      characterId: character.id,
+    },
+  });
+
+  const createdUserCharacter = await prisma.userCharacters.create({
+    data: {
+      userId: userId,
+      characterId: character.id,
+      level: newCharacter.level,
+      friendship: newCharacter.friendship,
+    },
+  });
+
+  //create user character talents
+  const userCharacterValues = [newCharacter.talents.normal, newCharacter.talents.skill, newCharacter.talents.burst];
+  for (let i = 0; i < talents.length; i++) {
+    await prisma.userTalents.create({
+      data: {
+        userId: createdUserCharacter.userId,
+        userCharacterId: createdUserCharacter.id,
+        characterId: createdUserCharacter.characterId,
+        talentId: talents[i].id,
+        value: userCharacterValues[i],
+      },
+    });
+  }
+
+  let numberAscensions = 0;
+  //create user character ascensions
+  if (ascensions.length === 2) {
+    //traveler case
+    numberAscensions = 0;
+    if (newCharacter.level >= 20) {
+      numberAscensions++; // 0 + 1
+    }
+    if (newCharacter.level >= 60) {
+      numberAscensions++; // 1 + 1
+    }
+  } else if (ascensions.length === 4) {
+    //kokomi case
+    numberAscensions = 2;
+    if (newCharacter.level >= 20) {
+      numberAscensions++; // 2 + 1
+    }
+    if (newCharacter.level >= 60) {
+      numberAscensions++; // 3 + 1
+    }
+  } else {
+    numberAscensions = 1;
+    if (newCharacter.level >= 20) {
+      numberAscensions++; // 1 + 1
+    }
+    if (newCharacter.level >= 60) {
+      numberAscensions++; // 2 + 1
+    }
+  }
+
+  await prisma.userAscensions.create({
+    data: {
+      userId: userId,
+      userCharacterId: createdUserCharacter.id,
+      value: numberAscensions,
+    },
+  });
+
+  //create user character constellations
+
+  await prisma.userConstellations.create({
+    data: {
+      userId: userId,
+      userCharacterId: createdUserCharacter.id,
+      value: newCharacter.constellations,
+    },
+  });
+
+  return createdUserCharacter;
+}
+
+const charactersRepository = {
+  userCharacters,
+  fillUserCharacterDetails,
+  findCharacter,
+  findUserCharacter,
+  createUserCharacter,
+};
 
 export { charactersRepository };

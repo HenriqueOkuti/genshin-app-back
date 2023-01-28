@@ -20,9 +20,9 @@ afterEach(async () => {
 
 const server = supertest(app);
 
-describe('GET /characters', () => {
+describe('GET /characters/user', () => {
   it('should return status 401 when token is not given', async () => {
-    const response = await server.get('/characters');
+    const response = await server.get('/characters/user');
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 
@@ -30,7 +30,7 @@ describe('GET /characters', () => {
     const headers = {
       Authorization: `Bearer ${faker.lorem.word()}`,
     };
-    const response = await server.get('/characters').set('Authorization', headers.Authorization);
+    const response = await server.get('/characters/user').set('Authorization', headers.Authorization);
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 
@@ -44,7 +44,7 @@ describe('GET /characters', () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await server.get('/characters').set('Authorization', headers.Authorization);
+      const response = await server.get('/characters/user').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({ message: 'empty list', characters: [] });
@@ -61,7 +61,7 @@ describe('GET /characters', () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await server.get('/characters').set('Authorization', headers.Authorization);
+      const response = await server.get('/characters/user').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({ message: null, characters: [userCharacter] });
@@ -70,9 +70,9 @@ describe('GET /characters', () => {
   });
 });
 
-describe('POST /characters', () => {
+describe('POST /characters/user', () => {
   it('should return status 401 when token is not given', async () => {
-    const response = await server.post('/characters');
+    const response = await server.post('/characters/user');
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 
@@ -80,7 +80,7 @@ describe('POST /characters', () => {
     const headers = {
       Authorization: `Bearer ${faker.lorem.word()}`,
     };
-    const response = await server.post('/characters').set('Authorization', headers.Authorization);
+    const response = await server.post('/characters/user').set('Authorization', headers.Authorization);
     expect(response.status).toBe(httpStatus.UNAUTHORIZED);
   });
 
@@ -94,7 +94,7 @@ describe('POST /characters', () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
@@ -112,37 +112,11 @@ describe('POST /characters', () => {
         invalidData: 1,
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
 
       //
-    });
-
-    it('should return status 400 when character does not exist', async () => {
-      const newUser = await generateUser();
-      const token = await generateValidToken(newUser);
-
-      await generateSession(newUser.id, token);
-      const headers = {
-        Authorization: `Bearer ${token}`,
-      };
-
-      const body = {
-        characterId: 0,
-        level: 1,
-        friendship: 1,
-        talents: {
-          normal: 1,
-          skill: 1,
-          burst: 1,
-        },
-        constellations: 0,
-      };
-
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
-
-      expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
 
     it('should return status 400 when passing invalid constellation inside body', async () => {
@@ -167,7 +141,7 @@ describe('POST /characters', () => {
         constellations: 7, //invalid parameter
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
       //
@@ -195,7 +169,7 @@ describe('POST /characters', () => {
         constellations: 5,
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
       //
@@ -223,7 +197,7 @@ describe('POST /characters', () => {
         constellations: 5,
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
       //
@@ -251,7 +225,7 @@ describe('POST /characters', () => {
         constellations: 5,
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
       //
@@ -279,10 +253,36 @@ describe('POST /characters', () => {
         constellations: 0, //generates invalid talents -> max allowed is 10 for skill/burst
       };
 
-      const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
       //
+    });
+
+    it('should return status 400 when character does not exist', async () => {
+      const newUser = await generateUser();
+      const token = await generateValidToken(newUser);
+
+      await generateSession(newUser.id, token);
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      const body = {
+        characterId: 0,
+        level: 1,
+        friendship: 1,
+        talents: {
+          normal: 1,
+          skill: 1,
+          burst: 1,
+        },
+        constellations: 0,
+      };
+
+      const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
+
+      expect(response.status).toBe(httpStatus.BAD_REQUEST);
     });
 
     describe('When everything is valid', () => {
@@ -309,9 +309,9 @@ describe('POST /characters', () => {
           constellations: 6,
         };
 
-        const response = await server.post('/characters').set('Authorization', headers.Authorization).send(body);
+        const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
-        expect(response.status).toBe(httpStatus.BAD_REQUEST);
+        expect(response.status).toBe(httpStatus.CREATED);
         //
       });
       //

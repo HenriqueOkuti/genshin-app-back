@@ -1,5 +1,6 @@
 import { charactersErrors, usersErrors } from '@/errors';
 import { charactersRepository, FixedCharacterType } from '@/repositories';
+import { CharacterAscensions, CharacterConstellations, CharacterTalents } from '@prisma/client';
 
 async function handleFetchCharacters(userId: number) {
   //search and return
@@ -80,11 +81,89 @@ async function handleDeleteCharacters(userId: number, userCharacterId: number) {
   return true;
 }
 
+async function handleFetchAll() {
+  const allCharacters = await charactersRepository.findAllCharacters();
+
+  interface FixedAscInter {
+    [key: string]: any;
+  }
+
+  type fixedCharacterType = {
+    id: number;
+    name: string;
+    elementId: number;
+    weaponId: number;
+    imageSplashArt: string;
+    imageFace: string;
+    localSpecialtyId: number;
+    dungeonMatId: number;
+    bossMatId: number;
+    weeklyBossMatId: number;
+    talents: {
+      normal: CharacterTalents;
+      skill: CharacterTalents;
+      burst: CharacterTalents;
+    };
+    ascension: FixedAscInter;
+    constellations: CharacterConstellations[];
+  };
+
+  const fixedCharacters: fixedCharacterType[] = [];
+
+  for (let i = 0; i < allCharacters.length; i++) {
+    const characterTalents = await charactersRepository.findCharacterTalents(allCharacters[i].id);
+    const characterAscensions = await charactersRepository.findCharacterAscensions(allCharacters[i].id);
+    const characterConstellations = await charactersRepository.findCharacterConstellations(allCharacters[i].id);
+
+    const fixedAscensions: FixedAscInter = {};
+    if (characterAscensions.length === 3) {
+      fixedAscensions.a0 = characterAscensions[0];
+      fixedAscensions.a1 = characterAscensions[1];
+      fixedAscensions.a4 = characterAscensions[2];
+    }
+    if (characterAscensions.length === 4) {
+      fixedAscensions.a0 = characterAscensions[0];
+      fixedAscensions.a1 = characterAscensions[1];
+      fixedAscensions.a4 = characterAscensions[2];
+      fixedAscensions.aBonus = characterAscensions[3];
+    }
+    if (characterAscensions.length === 2) {
+      fixedAscensions.a1 = characterAscensions[0];
+      fixedAscensions.a4 = characterAscensions[1];
+    }
+
+    const characterFixed = {
+      id: allCharacters[i].id,
+      name: allCharacters[i].name,
+      elementId: allCharacters[i].elementId,
+      weaponId: allCharacters[i].weaponId,
+      imageSplashArt: allCharacters[i].imageSplashArt,
+      imageFace: allCharacters[i].imageFace,
+      localSpecialtyId: allCharacters[i].localSpecialtyId,
+      dungeonMatId: allCharacters[i].dungeonMatId,
+      bossMatId: allCharacters[i].bossMatId,
+      weeklyBossMatId: allCharacters[i].weeklyBossMatId,
+      talents: {
+        normal: characterTalents[0],
+        skill: characterTalents[1],
+        burst: characterTalents[2],
+      },
+      ascension: fixedAscensions,
+      constellations: characterConstellations,
+    };
+
+    fixedCharacters.push(characterFixed);
+  }
+
+  return fixedCharacters;
+}
+
 const charactersService = {
   handleFetchCharacters,
   handleCreateCharacters,
   handleUpdateCharacters,
   handleDeleteCharacters,
+  handleFetchAll,
 };
 
 export { charactersService };

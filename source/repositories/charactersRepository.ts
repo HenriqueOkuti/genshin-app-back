@@ -385,6 +385,32 @@ async function deleteUserCharacter(userId: number, userCharacter: UserCharacters
   return true;
 }
 
+async function findAllCharacters() {
+  return await prisma.characters.findMany({});
+}
+
+async function findCharacterAscensions(characterId: number) {
+  return await prisma.characterAscensions.findMany({
+    where: {
+      characterId: characterId,
+    },
+  });
+}
+
+async function findCharacterConstellations(characterId: number) {
+  return await prisma.characterConstellations.findMany({
+    where: { characterId: characterId },
+  });
+}
+
+async function findCharacterTalents(characterId: number) {
+  return await prisma.characterTalents.findMany({
+    where: {
+      characterId: characterId,
+    },
+  });
+}
+
 const charactersRepository = {
   userCharacters,
   fillUserCharacterDetails,
@@ -394,6 +420,10 @@ const charactersRepository = {
   findUserCharacterViaID,
   updateUserCharacter,
   deleteUserCharacter,
+  findAllCharacters,
+  findCharacterTalents,
+  findCharacterAscensions,
+  findCharacterConstellations,
 };
 
 export { charactersRepository };

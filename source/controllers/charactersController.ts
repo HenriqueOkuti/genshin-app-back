@@ -61,8 +61,6 @@ export async function deleteUserCharacter(req: Request, res: Response) {
     userCharacterId: number;
   };
 
-  console.log(userCharacterId);
-
   try {
     await charactersService.handleDeleteCharacters(+userId, +userCharacterId);
 
@@ -72,6 +70,18 @@ export async function deleteUserCharacter(req: Request, res: Response) {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+export async function getAllCharacters(req: Request, res: Response) {
+  try {
+    //
+    //
+    const characters = await charactersService.handleFetchAll();
+
+    return res.status(httpStatus.OK).send({ message: null, characters: characters });
+  } catch (error) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

@@ -3,7 +3,12 @@ import faker from '@faker-js/faker';
 import httpStatus from 'http-status';
 import supertest from 'supertest';
 import { cleanDb, generateSession, generateUser, generateValidToken } from '../helpers';
-import { createCharacter, createCharacterWithDetails, createUserCharacter } from '../factories/characters.factory';
+import {
+  createCharacter,
+  createCharacterWithDetails,
+  createMultipleCharacters,
+  createUserCharacter,
+} from '../factories/characters.factory';
 
 beforeAll(async () => {
   await init();
@@ -732,9 +737,9 @@ describe('GET /characters/all', () => {
     it('should return status 200 and characters inside an array', async () => {
       const newUser = await generateUser();
       const token = await generateValidToken(newUser);
-      const character = await createCharacter();
-      //console.log()
-      //also needs: talents + ascensions + constellations
+      const characters = await createMultipleCharacters(2);
+
+      //console.log(characters[0]);
 
       await generateSession(newUser.id, token);
       const headers = {
@@ -744,7 +749,7 @@ describe('GET /characters/all', () => {
       const response = await server.get('/characters/all').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.OK);
-      //expect(response.body).toEqual({ message: null, characters: [userCharacter] });
+      expect(response.body).toEqual({ message: null, characters: characters });
     });
     //
   });

@@ -2,6 +2,7 @@
 import { getUserInfo } from '@/controllers';
 import {
   deleteUserCharacter,
+  getAllCharacters,
   getUserCharacters,
   postUserCharacters,
   updateUserCharacter,
@@ -34,7 +35,7 @@ charactersRouter
     (req, res, next) => validateBody(deleteCharacterSchema, req, res, next),
     deleteUserCharacter
   )
-  .get('/all', (req, res, next) => validateToken(req, res, next), getUserCharacters);
+  .get('/all', (req, res, next) => validateToken(req, res, next), getAllCharacters);
 
 //console.log()
 // get /all controller is wrong (it's not supposed to be getUserCharacters)

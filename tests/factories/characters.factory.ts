@@ -44,6 +44,17 @@ export async function createCharacter() {
   return character;
 }
 
+export async function createMultipleCharacters(quantity: number) {
+  const characters = [];
+
+  for (let i = 0; i < quantity; i++) {
+    const createdCharacter = await createCharacterWithDetails();
+    characters.push(createdCharacter);
+  }
+
+  return characters;
+}
+
 export async function createUserCharacter(character: Characters, userId: number) {
   //THIS USER CHARACTER HAS:
   //  LEVEL: 90 (MAX)

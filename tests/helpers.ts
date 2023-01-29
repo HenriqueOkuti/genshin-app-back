@@ -15,7 +15,9 @@ export async function cleanDb() {
   await prisma.characterAscensions.deleteMany({});
   await prisma.characterConstellations.deleteMany({});
   await prisma.characterTalents.deleteMany({});
+
   await prisma.characters.deleteMany({});
+  await prisma.elements.deleteMany({});
 
   await prisma.session.deleteMany({});
   await prisma.taskInfo.deleteMany({});
@@ -25,7 +27,6 @@ export async function cleanDb() {
   await prisma.userBackpack.deleteMany({});
   await prisma.gems.deleteMany({});
   await prisma.users.deleteMany({});
-  await prisma.elements.deleteMany({});
 
   await prisma.bossMats.deleteMany({});
 

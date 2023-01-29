@@ -67,10 +67,24 @@ async function handleUpdateCharacters(userId: number, userCharacter: updateReque
   return updatedChar;
 }
 
+async function handleDeleteCharacters(userId: number, userCharacterId: number) {
+  //find userCharacter
+  //console.log('service');
+  const userCharacter = await charactersRepository.findUserCharacterViaID(userCharacterId, userId);
+  //console.log(userCharacter);
+  if (!userCharacter) {
+    throw charactersErrors.notFoundError();
+  }
+
+  await charactersRepository.deleteUserCharacter(userId, userCharacter);
+  return true;
+}
+
 const charactersService = {
   handleFetchCharacters,
   handleCreateCharacters,
   handleUpdateCharacters,
+  handleDeleteCharacters,
 };
 
 export { charactersService };

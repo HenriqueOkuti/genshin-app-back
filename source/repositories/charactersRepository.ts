@@ -354,6 +354,37 @@ async function createUserCharacter(userId: number, newCharacter: postRequest, ch
   return createdUserCharacter;
 }
 
+async function deleteUserCharacter(userId: number, userCharacter: UserCharacters) {
+  await prisma.userTalents.deleteMany({
+    where: {
+      userCharacterId: userCharacter.id,
+      userId: userId,
+    },
+  });
+
+  await prisma.userConstellations.deleteMany({
+    where: {
+      userCharacterId: userCharacter.id,
+      userId: userId,
+    },
+  });
+
+  await prisma.userAscensions.deleteMany({
+    where: {
+      userCharacterId: userCharacter.id,
+      userId: userId,
+    },
+  });
+
+  await prisma.userCharacters.delete({
+    where: {
+      id: userCharacter.id,
+    },
+  });
+
+  return true;
+}
+
 const charactersRepository = {
   userCharacters,
   fillUserCharacterDetails,
@@ -362,6 +393,7 @@ const charactersRepository = {
   createUserCharacter,
   findUserCharacterViaID,
   updateUserCharacter,
+  deleteUserCharacter,
 };
 
 export { charactersRepository };

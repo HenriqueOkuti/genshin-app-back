@@ -57,11 +57,21 @@ export async function updateUserCharacter(req: Request, res: Response) {
 
 export async function deleteUserCharacter(req: Request, res: Response) {
   const { userId } = res.locals;
+  const { userCharacterId } = req.body as {
+    userCharacterId: number;
+  };
 
-  console.log('entering controller');
+  console.log(userCharacterId);
+
   try {
-    return res.sendStatus(httpStatus.UNAUTHORIZED);
+    await charactersService.handleDeleteCharacters(+userId, +userCharacterId);
+
+    return res.sendStatus(httpStatus.OK);
   } catch (error) {
+    if (error.name === 'NotFoundError') {
+      return res.sendStatus(httpStatus.BAD_REQUEST);
+    }
+
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

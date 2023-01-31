@@ -110,6 +110,28 @@ describe('PUT /users/info', () => {
     });
 
     describe('when everything is valid', () => {
+      it('should return status 400 when trying to update email already in use', async () => {
+        const newUser = await generateUser();
+        const newUser2 = await generateUser();
+        const token = await generateValidToken(newUser);
+
+        await generateSession(newUser.id, token);
+
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+
+        const body = {
+          name: faker.lorem.word(),
+          email: newUser2.email,
+          image: faker.internet.url(),
+        };
+
+        const response = await server.put('/users/info').set('Authorization', headers.Authorization).send(body);
+
+        expect(response.status).toBe(httpStatus.BAD_REQUEST);
+      });
+
       it('should update user data and return updated info (name + email + image)', async () => {
         const newUser = await generateUser();
         const token = await generateValidToken(newUser);
@@ -122,7 +144,7 @@ describe('PUT /users/info', () => {
 
         const body = {
           name: faker.lorem.word(),
-          email: faker.internet.email(),
+          email: newUser.email,
           image: faker.internet.url(),
         };
 

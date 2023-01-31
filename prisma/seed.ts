@@ -8,11 +8,18 @@ import { Console } from 'console';
 const prisma = new PrismaClient();
 
 async function cleanDb() {
+  await prisma.userAscensions.deleteMany({});
+  await prisma.userConstellations.deleteMany({});
+  await prisma.userTalents.deleteMany({});
+  await prisma.userCharacters.deleteMany({});
+
   await prisma.characterEnemyMats.deleteMany({});
   await prisma.characterAscensions.deleteMany({});
   await prisma.characterConstellations.deleteMany({});
   await prisma.characterTalents.deleteMany({});
+
   await prisma.characters.deleteMany({});
+  await prisma.elements.deleteMany({});
 
   await prisma.session.deleteMany({});
   await prisma.taskInfo.deleteMany({});
@@ -22,8 +29,7 @@ async function cleanDb() {
   await prisma.userBackpack.deleteMany({});
   await prisma.gems.deleteMany({});
   await prisma.users.deleteMany({});
-  await prisma.elements.deleteMany({});
-  await prisma.userCharacters.deleteMany({});
+
   await prisma.bossMats.deleteMany({});
 
   await prisma.dungeonMats.deleteMany({});

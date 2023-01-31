@@ -85,3 +85,27 @@ export async function getAllCharacters(req: Request, res: Response) {
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }
+
+export async function getWeapons(req: Request, res: Response) {
+  try {
+    //
+    //
+    const weapons = await charactersService.handleFetchWeapons();
+
+    return res.status(httpStatus.OK).send({ message: null, weapons: weapons });
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}
+
+export async function getElements(req: Request, res: Response) {
+  try {
+    //
+    //
+    const elements = await charactersService.handleFetchElements();
+
+    return res.status(httpStatus.OK).send({ message: null, elements: elements });
+  } catch (error) {
+    return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
+  }
+}

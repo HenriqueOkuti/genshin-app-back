@@ -17,7 +17,7 @@ async function handleFetchCharacters(userId: number) {
 }
 
 export type postRequest = {
-  characterid: number;
+  characterId: number;
   level: number;
   friendship: number;
   constellations: number;
@@ -26,12 +26,13 @@ export type postRequest = {
 
 async function handleCreateCharacters(userId: number, newCharacter: postRequest) {
   //console.log(userId, newCharacter);
-  const characterExists = await charactersRepository.findCharacter(newCharacter.characterid);
+  const characterExists = await charactersRepository.findCharacter(newCharacter.characterId);
   if (!characterExists) {
     throw charactersErrors.characterNotFoundError();
   }
 
-  const userCharacter = await charactersRepository.findUserCharacter(newCharacter.characterid, userId);
+  const userCharacter = await charactersRepository.findUserCharacter(newCharacter.characterId, userId);
+
   if (userCharacter) {
     throw charactersErrors.characterAlreadyCreatedError();
   }
@@ -158,12 +159,22 @@ async function handleFetchAll() {
   return fixedCharacters;
 }
 
+async function handleFetchWeapons() {
+  return await charactersRepository.findWeapons();
+}
+
+async function handleFetchElements() {
+  return await charactersRepository.findElements();
+}
+
 const charactersService = {
   handleFetchCharacters,
   handleCreateCharacters,
   handleUpdateCharacters,
   handleDeleteCharacters,
   handleFetchAll,
+  handleFetchWeapons,
+  handleFetchElements,
 };
 
 export { charactersService };

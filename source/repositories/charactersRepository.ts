@@ -116,8 +116,7 @@ async function findCharacter(characterId: number) {
 async function findUserCharacter(characterId: number, userId: number) {
   return await prisma.userCharacters.findFirst({
     where: {
-      userId: userId,
-      characterId: characterId,
+      AND: [{ userId: userId }, { characterId: characterId }],
     },
   });
 }
@@ -411,6 +410,14 @@ async function findCharacterTalents(characterId: number) {
   });
 }
 
+async function findWeapons() {
+  return await prisma.weapons.findMany({});
+}
+
+async function findElements() {
+  return await prisma.elements.findMany({});
+}
+
 const charactersRepository = {
   userCharacters,
   fillUserCharacterDetails,
@@ -424,6 +431,8 @@ const charactersRepository = {
   findCharacterTalents,
   findCharacterAscensions,
   findCharacterConstellations,
+  findWeapons,
+  findElements,
 };
 
 export { charactersRepository };

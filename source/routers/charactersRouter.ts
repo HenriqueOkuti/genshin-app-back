@@ -3,7 +3,9 @@ import { getUserInfo } from '@/controllers';
 import {
   deleteUserCharacter,
   getAllCharacters,
+  getElements,
   getUserCharacters,
+  getWeapons,
   postUserCharacters,
   updateUserCharacter,
 } from '@/controllers/charactersController';
@@ -35,7 +37,9 @@ charactersRouter
     (req, res, next) => validateBody(deleteCharacterSchema, req, res, next),
     deleteUserCharacter
   )
-  .get('/all', (req, res, next) => validateToken(req, res, next), getAllCharacters);
+  .get('/all', (req, res, next) => validateToken(req, res, next), getAllCharacters)
+  .get('/weapons', (req, res, next) => validateToken(req, res, next), getWeapons)
+  .get('/elements', (req, res, next) => validateToken(req, res, next), getElements);
 
 //console.log()
 // get /all controller is wrong (it's not supposed to be getUserCharacters)

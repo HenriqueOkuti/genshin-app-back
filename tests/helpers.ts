@@ -33,6 +33,8 @@ export async function cleanDb() {
   await prisma.dungeonMats.deleteMany({});
   await prisma.dungeons.deleteMany({});
 
+  await prisma.weeklyBossMats.deleteMany({});
+
   await prisma.region.deleteMany({});
   await prisma.localSpecialty.deleteMany({});
 

@@ -30,6 +30,9 @@ async function fillUserCharacterDetails(userId: number, character: UserCharacter
     where: {
       userCharacterId: character.id,
     },
+    orderBy: {
+      id: 'asc',
+    },
   });
 
   //Annex correct ascensions for 'character':
@@ -214,30 +217,93 @@ async function updateUserCharacter(userId: number, userCharacter: updateRequest,
     },
   });
 
-  if (oldTalents[0].value !== userCharacter.talents.normal) {
+  const charTalents = await prisma.characterTalents.findMany({
+    where: {
+      characterId: userCharacter.characterId,
+    },
+  });
+
+  // type of talent -> id of talent (string to number)
+  const auxDict = {
+    normal: 0,
+    skill: 0,
+    burst: 0,
+  };
+
+  // type of talent -> user talent id (string to number)
+  const auxDict2 = {
+    normal: 0,
+    skill: 0,
+    burst: 0,
+  };
+
+  // type of talent -> old talent index (string to number)
+  const auxDict3 = {
+    normal: 0,
+    skill: 0,
+    burst: 0,
+  };
+
+  for (const [key, value] of Object.entries(charTalents)) {
+    if (value.number === 1) {
+      auxDict.normal = value.id;
+    }
+    if (value.number === 2) {
+      auxDict.skill = value.id;
+    }
+    if (value.number === 3) {
+      auxDict.burst = value.id;
+    }
+  }
+
+  for (const [key, value] of Object.entries(oldTalents)) {
+    if (value.talentId === auxDict.normal) {
+      auxDict2.normal = value.id;
+    }
+    if (value.talentId === auxDict.skill) {
+      auxDict2.skill = value.id;
+    }
+    if (value.talentId === auxDict.burst) {
+      auxDict2.burst = value.id;
+    }
+  }
+
+  for (let i = 0; i < oldTalents.length; i++) {
+    if (oldTalents[i].talentId === auxDict.normal) {
+      auxDict3.normal = i;
+    }
+    if (oldTalents[i].talentId === auxDict.skill) {
+      auxDict3.skill = i;
+    }
+    if (oldTalents[i].talentId === auxDict.burst) {
+      auxDict3.burst = i;
+    }
+  }
+
+  if (oldTalents[auxDict3.normal].value !== userCharacter.talents.normal) {
     await prisma.userTalents.update({
       where: {
-        id: oldTalents[0].id,
+        id: auxDict2.normal,
       },
       data: {
         value: userCharacter.talents.normal,
       },
     });
   }
-  if (oldTalents[1].value !== userCharacter.talents.skill) {
+  if (oldTalents[auxDict3.skill].value !== userCharacter.talents.skill) {
     await prisma.userTalents.update({
       where: {
-        id: oldTalents[1].id,
+        id: auxDict2.skill,
       },
       data: {
         value: userCharacter.talents.skill,
       },
     });
   }
-  if (oldTalents[2].value !== userCharacter.talents.burst) {
+  if (oldTalents[auxDict3.burst].value !== userCharacter.talents.burst) {
     await prisma.userTalents.update({
       where: {
-        id: oldTalents[2].id,
+        id: auxDict2.burst,
       },
       data: {
         value: userCharacter.talents.burst,

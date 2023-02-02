@@ -94,8 +94,6 @@ async function handleFetchAll() {
     name: string;
     elementId: number;
     weaponId: number;
-    imageSplashArt: string;
-    imageFace: string;
     localSpecialtyId: number;
     dungeonMatId: number;
     bossMatId: number;
@@ -138,8 +136,6 @@ async function handleFetchAll() {
       name: allCharacters[i].name,
       elementId: allCharacters[i].elementId,
       weaponId: allCharacters[i].weaponId,
-      imageSplashArt: allCharacters[i].imageSplashArt,
-      imageFace: allCharacters[i].imageFace,
       localSpecialtyId: allCharacters[i].localSpecialtyId,
       dungeonMatId: allCharacters[i].dungeonMatId,
       bossMatId: allCharacters[i].bossMatId,

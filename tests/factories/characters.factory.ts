@@ -32,8 +32,6 @@ export async function createCharacter() {
       name: faker.name.firstName(),
       elementId: element.id,
       weaponId: weapon.id,
-      imageSplashArt: 'imageSplashArt',
-      imageFace: 'imageFace',
       localSpecialtyId: localSpecialty.id,
       dungeonMatId: dungeonMats.id,
       bossMatId: bossMats.id,
@@ -88,7 +86,6 @@ export async function createUserCharacter(character: Characters, userId: number)
       number: 1,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -96,10 +93,9 @@ export async function createUserCharacter(character: Characters, userId: number)
   const charTalentSkill = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
-      number: 1,
+      number: 2,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -107,10 +103,9 @@ export async function createUserCharacter(character: Characters, userId: number)
   const charTalentBurst = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
-      number: 1,
+      number: 3,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -132,6 +127,8 @@ export async function createUserCharacter(character: Characters, userId: number)
     );
   }
 
+  //console.log(userTalents);
+
   //  CHARACTER ASCENSIONS:
   //    ASCENSION A0:
   const charAscension0 = await prisma.characterAscensions.create({
@@ -139,7 +136,6 @@ export async function createUserCharacter(character: Characters, userId: number)
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -149,7 +145,6 @@ export async function createUserCharacter(character: Characters, userId: number)
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -159,7 +154,6 @@ export async function createUserCharacter(character: Characters, userId: number)
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -191,7 +185,6 @@ export async function createUserCharacter(character: Characters, userId: number)
           number: i + 1,
           title: faker.internet.userName(),
           text: faker.internet.userName(),
-          image: faker.internet.userName(),
         },
       })
     );
@@ -227,7 +220,6 @@ export async function createCharacterWithDetails() {
       number: 1,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -238,7 +230,6 @@ export async function createCharacterWithDetails() {
       number: 1,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -249,7 +240,6 @@ export async function createCharacterWithDetails() {
       number: 1,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -260,7 +250,6 @@ export async function createCharacterWithDetails() {
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -270,7 +259,6 @@ export async function createCharacterWithDetails() {
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -280,7 +268,6 @@ export async function createCharacterWithDetails() {
       characterId: character.id,
       title: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 
@@ -295,7 +282,6 @@ export async function createCharacterWithDetails() {
           number: i + 1,
           title: faker.internet.userName(),
           text: faker.internet.userName(),
-          image: faker.internet.userName(),
         },
       })
     );
@@ -340,7 +326,6 @@ export async function createLocalSpecialty() {
     data: {
       name: faker.internet.userName(),
       key: faker.internet.userName(),
-      image: faker.internet.userName(),
     },
   });
 }
@@ -358,7 +343,6 @@ export async function createDungeon(regionId: number) {
     data: {
       name: faker.internet.userName(),
       text: faker.internet.userName(),
-      image: faker.internet.userName(),
       regionId: regionId,
     },
   });
@@ -371,7 +355,6 @@ export async function createDungeonMats(dungeonId: number) {
       class: faker.internet.userName(),
       rarity: 2,
       key: faker.internet.userName(),
-      image: faker.internet.userName(),
       day: faker.internet.userName(),
       dungeonId: dungeonId,
       weaponMat: false,
@@ -384,7 +367,6 @@ export async function createBossMats() {
   return await prisma.bossMats.create({
     data: {
       name: faker.internet.userName(),
-      image: faker.internet.userName(),
       key: faker.internet.userName(),
     },
   });
@@ -394,7 +376,6 @@ export async function createWeeklyBossMats() {
   return await prisma.weeklyBossMats.create({
     data: {
       name: faker.internet.userName(),
-      image: faker.internet.userName(),
       key: faker.internet.userName(),
     },
   });

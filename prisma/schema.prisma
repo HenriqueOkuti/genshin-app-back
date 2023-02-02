@@ -24,8 +24,8 @@ model BackpackInfo {
 model BossMats {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
-  image      String       @db.VarChar(255)
   key        String       @db.VarChar(255)
+  rarity     Int          @default(4)
   Characters Characters[]
 }
 
@@ -34,7 +34,6 @@ model CharacterAscensions {
   characterId Int
   title       String     @db.VarChar(255)
   text        String
-  image       String     @db.VarChar(255)
   Characters  Characters @relation(fields: [characterId], references: [id])
 }
 
@@ -44,7 +43,6 @@ model CharacterConstellations {
   number      Int
   title       String     @db.VarChar(255)
   text        String
-  image       String     @db.VarChar(255)
   Characters  Characters @relation(fields: [characterId], references: [id])
 }
 
@@ -54,7 +52,6 @@ model CharacterTalents {
   number      Int
   title       String        @db.VarChar(255)
   text        String
-  image       String        @db.VarChar(255)
   Characters  Characters    @relation(fields: [characterId], references: [id])
   UserTalents UserTalents[]
 }
@@ -64,8 +61,6 @@ model Characters {
   name                    String                    @db.VarChar(255)
   elementId               Int
   weaponId                Int
-  imageSplashArt          String                    @db.VarChar(255)
-  imageFace               String                    @db.VarChar(255)
   localSpecialtyId        Int
   dungeonMatId            Int
   bossMatId               Int
@@ -90,7 +85,6 @@ model DungeonMats {
   class        String       @db.VarChar(255)
   rarity       Int
   key          String       @db.VarChar(255)
-  image        String       @db.VarChar(255)
   day          String       @db.VarChar(255)
   dungeonId    Int
   weaponMat    Boolean
@@ -103,7 +97,6 @@ model Dungeons {
   id          Int           @id @default(autoincrement())
   name        String        @db.VarChar(255)
   text        String
-  image       String        @db.VarChar(255)
   regionId    Int
   Region      Region        @relation(fields: [regionId], references: [id])
   DungeonMats DungeonMats[]
@@ -119,7 +112,6 @@ model Elements {
 model EnemyMats {
   id                 Int                  @id @default(autoincrement())
   name               String               @db.VarChar(255)
-  image              String               @db.VarChar(255)
   key                String               @db.VarChar(255)
   rarity             Int
   CharacterEnemyMats CharacterEnemyMats[]
@@ -137,7 +129,7 @@ model LocalSpecialty {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
   key        String       @db.VarChar(255)
-  image      String       @db.VarChar(255)
+  rarity     Int          @default(1)
   Characters Characters[]
 }
 
@@ -163,39 +155,20 @@ model TaskInfo {
   dungeonMat     Boolean @default(false)
   enemyMat       Boolean @default(false)
   localSpecialty Boolean @default(false)
-  weaponMat      Boolean @default(false)
   itemId         Int
   quantity       Int
   Tasks          Tasks[]
 }
 
 model Tasks {
-  id         Int         @id @default(autoincrement())
-  name       String      @db.VarChar(255)
-  taskInfoId Int
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
-  TaskInfo   TaskInfo    @relation(fields: [taskInfoId], references: [id])
-  UserTasks  UserTasks[]
-}
-
-model ThemeHexes {
-  id      Int    @id @default(autoincrement())
-  themeId Int
-  hex1    String @db.VarChar(255)
-  hex2    String @db.VarChar(255)
-  hex3    String @db.VarChar(255)
-  hex4    String @db.VarChar(255)
-  hex5    String @db.VarChar(255)
-  hex6    String @db.VarChar(255)
-  Themes  Themes @relation(fields: [themeId], references: [id])
-}
-
-model Themes {
-  id         Int          @id @default(autoincrement())
-  name       String       @db.VarChar(255)
-  image      String       @db.VarChar(255)
-  ThemeHexes ThemeHexes[]
+  id              Int               @id @default(autoincrement())
+  name            String            @db.VarChar(255)
+  userId          Int
+  taskInfoId      Int
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  TaskInfo        TaskInfo          @relation(fields: [taskInfoId], references: [id])
+  TempTransaction TempTransaction[]
 }
 
 model UserBackpack {
@@ -215,16 +188,7 @@ model UserCharacters {
   Characters         Characters           @relation(fields: [characterId], references: [id])
   Users              Users                @relation(fields: [userId], references: [id])
   UserAscensions     UserAscensions[]
-  UserCharTalents    UserCharTalents[]
   UserConstellations UserConstellations[]
-}
-
-model UserTasks {
-  id     Int   @id @default(autoincrement())
-  userId Int
-  taskId Int
-  Tasks  Tasks @relation(fields: [taskId], references: [id])
-  Users  Users @relation(fields: [userId], references: [id])
 }
 
 model Users {
@@ -236,13 +200,13 @@ model Users {
   createdAt          DateTime             @default(now())
   updatedAt          DateTime             @updatedAt
   Session            Session?
+  TempItems          TempItems[]
+  TempTransaction    TempTransaction?
   UserAscensions     UserAscensions[]
   UserBackpack       UserBackpack[]
-  UserCharTalents    UserCharTalents[]
   UserCharacters     UserCharacters[]
   UserConstellations UserConstellations[]
   UserTalents        UserTalents[]
-  UserTasks          UserTasks[]
 }
 
 model Weapons {
@@ -255,8 +219,8 @@ model Weapons {
 model WeeklyBossMats {
   id         Int          @id @default(autoincrement())
   name       String       @db.VarChar(255)
-  image      String       @db.VarChar(255)
   key        String       @db.VarChar(255)
+  rarity     Int          @default(5)
   Characters Characters[]
 }
 
@@ -279,16 +243,15 @@ model UserConstellations {
 }
 
 model UserTalents {
-  id               Int               @id @default(autoincrement())
+  id               Int              @id @default(autoincrement())
   userId           Int
   userCharacterId  Int
   characterId      Int
   talentId         Int
-  value            Int               @default(1)
-  Characters       Characters        @relation(fields: [characterId], references: [id])
-  CharacterTalents CharacterTalents  @relation(fields: [talentId], references: [id])
-  Users            Users             @relation(fields: [userId], references: [id])
-  UserCharTalents  UserCharTalents[]
+  value            Int              @default(1)
+  Characters       Characters       @relation(fields: [characterId], references: [id])
+  CharacterTalents CharacterTalents @relation(fields: [talentId], references: [id])
+  Users            Users            @relation(fields: [userId], references: [id])
 }
 
 model CharacterEnemyMats {
@@ -299,12 +262,30 @@ model CharacterEnemyMats {
   EnemyMats   EnemyMats  @relation(fields: [enemyMatId], references: [id])
 }
 
-model UserCharTalents {
-  id              Int            @id @default(autoincrement())
-  userId          Int
-  userCharacterId Int
-  userTalentId    Int
-  UserCharacters  UserCharacters @relation(fields: [userCharacterId], references: [id], map: "UserTalents_userCharacterId_fkey")
-  Users           Users          @relation(fields: [userId], references: [id], map: "UserTalents_userId_fkey")
-  UserTalents     UserTalents    @relation(fields: [userTalentId], references: [id], map: "UserTalents_userTalentId_fkey")
+model TempItems {
+  id             Int     @id @default(autoincrement())
+  userId         Int
+  weeklyBossMat  Boolean @default(false)
+  bossMat        Boolean @default(false)
+  dungeonMat     Boolean @default(false)
+  enemyMat       Boolean @default(false)
+  localSpecialty Boolean @default(false)
+  weaponMat      Boolean @default(false)
+  itemId         Int     @default(1)
+  rarity         Int
+  name           String
+  key            String
+  Users          Users   @relation(fields: [userId], references: [id])
+}
+
+model TempTransaction {
+  id             Int     @id @default(autoincrement())
+  userId         Int     @unique(map: "Index_userId")
+  name           String  @db.VarChar(255)
+  image          String
+  isPost         Boolean @default(false)
+  isPut          Boolean @default(false)
+  originalTaskId Int?
+  Tasks          Tasks?  @relation(fields: [originalTaskId], references: [id], onDelete: Restrict)
+  Users          Users   @relation(fields: [userId], references: [id])
 }

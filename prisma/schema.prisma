@@ -155,19 +155,20 @@ model TaskInfo {
   dungeonMat     Boolean @default(false)
   enemyMat       Boolean @default(false)
   localSpecialty Boolean @default(false)
+  taskId         Int
   itemId         Int
   quantity       Int
-  Tasks          Tasks[]
+  Tasks          Tasks   @relation(fields: [taskId], references: [id])
 }
 
 model Tasks {
   id              Int               @id @default(autoincrement())
   name            String            @db.VarChar(255)
   userId          Int
-  taskInfoId      Int
+  image           String
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  TaskInfo        TaskInfo          @relation(fields: [taskInfoId], references: [id])
+  TaskInfo        TaskInfo[]
   TempTransaction TempTransaction[]
 }
 

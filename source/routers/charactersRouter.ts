@@ -8,7 +8,7 @@ import {
   getWeapons,
   postUserCharacters,
   updateUserCharacter,
-} from '@/controllers/charactersController';
+} from '@/controllers';
 import { validateBody, validateBodyValues, validateToken } from '@/middlewares';
 import { createCharacterSchema, deleteCharacterSchema, updateCharacterSchema } from '@/schemas';
 import { Router } from 'express';

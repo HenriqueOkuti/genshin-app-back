@@ -108,10 +108,25 @@ describe('GET /tasks/user', () => {
         Authorization: `Bearer ${token}`,
       };
 
+      //console.log(userTask);
+
       const response = await server.get('/tasks/user').set('Authorization', headers.Authorization);
 
       expect(response.status).toBe(httpStatus.OK);
-      expect(response.body).toEqual({ message: null, tasks: [userTask] });
+      expect(response.body).toEqual({
+        message: null,
+        tasks: [
+          {
+            userId: userTask.userId,
+            id: userTask.taskId,
+            name: userTask.name,
+            updatedAt: JSON.stringify(userTask.updatedAt),
+            createdAt: JSON.stringify(userTask.createdAt),
+            image: userTask.image,
+            items: userTask.items,
+          },
+        ],
+      });
     });
     //
   });
@@ -289,8 +304,6 @@ describe('PUT /tasks/user', () => {
 
       const body = { ...invalidModifiedTask, taskId: 0 };
 
-      await generateSession(newUser.id, token);
-
       const response = await server.put('/tasks/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.NOT_FOUND);
@@ -309,8 +322,6 @@ describe('PUT /tasks/user', () => {
         };
 
         const body = validModifiedTask;
-
-        await generateSession(newUser.id, token);
 
         const response = await server.put('/tasks/user').set('Authorization', headers.Authorization).send(body);
 
@@ -389,8 +400,6 @@ describe('DELETE /tasks/user', () => {
         taskId: user2Task.taskId,
       };
 
-      await generateSession(newUser1.id, token);
-
       const response = await server.delete('/tasks/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.UNAUTHORIZED);
@@ -414,9 +423,7 @@ describe('DELETE /tasks/user', () => {
           taskId: userTask.taskId,
         };
 
-        await generateSession(newUser.id, token);
-
-        const response = await server.put('/tasks/user').set('Authorization', headers.Authorization).send(body);
+        const response = await server.delete('/tasks/user').set('Authorization', headers.Authorization).send(body);
 
         expect(response.status).toBe(httpStatus.OK);
         //

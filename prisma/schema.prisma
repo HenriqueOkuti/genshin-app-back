@@ -272,7 +272,8 @@ model TempItems {
   enemyMat       Boolean @default(false)
   localSpecialty Boolean @default(false)
   weaponMat      Boolean @default(false)
-  itemId         Int     @default(1)
+  itemId         Int
+  quantity       Int     @default(1)
   rarity         Int
   name           String
   key            String

@@ -35,6 +35,8 @@ export async function putUserTasks(req: Request, res: Response) {
   const modifiedTask = req.body as modifiedTaskBody;
 
   try {
+    //console.log(modifiedTask);
+
     const updated = await tasksService.updateUserTask(+userId, modifiedTask);
 
     return res.sendStatus(httpStatus.OK);
@@ -47,6 +49,7 @@ export async function putUserTasks(req: Request, res: Response) {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
 
+    console.log(error);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

@@ -92,15 +92,39 @@ async function findUserSpecificTask(taskId: number) {
 
 async function updateUserTask(modifiedTask: modifiedTaskBody) {
   //delete previous task items
-  await prisma.taskInfo.deleteMany({
+  let taskId = 0;
+
+  for (let i = 0; i < modifiedTask.items.length; i++) {
+    const item = modifiedTask.items[i];
+    if (item.taskId) {
+      taskId = item.taskId;
+      break;
+    }
+  }
+
+  await prisma.tasks.update({
     where: {
-      taskId: modifiedTask.taskId,
+      id: taskId,
+    },
+    data: {
+      name: modifiedTask.name,
+      image: modifiedTask.image,
+      updatedAt: new Date(),
     },
   });
 
+  const deleteOldTaskInfo = await prisma.taskInfo.deleteMany({
+    where: {
+      taskId: taskId,
+    },
+  });
+
+  //console.log(something);
+  //console.log(modifiedTask);
   //insert updated items
   for (let i = 0; i < modifiedTask.items.length; i++) {
     const item = modifiedTask.items[i];
+    //console.log(item.weeklyBossMat);
     await prisma.taskInfo.create({
       data: {
         weeklyBossMat: item.weeklyBossMat,
@@ -110,7 +134,7 @@ async function updateUserTask(modifiedTask: modifiedTaskBody) {
         localSpecialty: item.localSpecialty,
         itemId: item.itemId,
         quantity: item.quantity,
-        taskId: modifiedTask.taskId,
+        taskId: item.taskId,
       },
     });
   }

@@ -24,7 +24,6 @@ async function cleanDb() {
   await prisma.session.deleteMany({});
   await prisma.taskInfo.deleteMany({});
   await prisma.tasks.deleteMany({});
-  await prisma.userTasks.deleteMany({});
   await prisma.backpackInfo.deleteMany({});
   await prisma.userBackpack.deleteMany({});
   await prisma.gems.deleteMany({});
@@ -35,14 +34,14 @@ async function cleanDb() {
   await prisma.dungeonMats.deleteMany({});
   await prisma.dungeons.deleteMany({});
 
+  await prisma.weeklyBossMats.deleteMany({});
+
   await prisma.region.deleteMany({});
   await prisma.localSpecialty.deleteMany({});
 
   await prisma.weapons.deleteMany({});
 
   await prisma.enemyMats.deleteMany({});
-  await prisma.themeHexes.deleteMany({});
-  await prisma.themes.deleteMany({});
 }
 
 async function insertElements() {
@@ -100,7 +99,7 @@ async function findRegionId(name: string) {
   });
 }
 
-async function insertDungeons(dungeons: { name: string; image: string; regionId: number; text: string }[]) {
+async function insertDungeons(dungeons: { name: string; regionId: number; text: string }[]) {
   await prisma.dungeons.createMany({
     data: dungeons,
   });
@@ -130,7 +129,7 @@ async function main() {
 
   await insertRegions(regionsArray);
 
-  const talentDungeonsFormatted: { name: string; image: string; regionId: number; text: string }[] = [];
+  const talentDungeonsFormatted: { name: string; regionId: number; text: string }[] = [];
 
   //insert dungeons -> dungeons.talentDungeons
   const talentDungeons = dungeons.talentDungeons;
@@ -139,7 +138,6 @@ async function main() {
 
     const dungeonData = {
       name: value.name,
-      image: value.image,
       regionId: regionId?.id || 0,
       text: value.text,
     };
@@ -147,7 +145,7 @@ async function main() {
     talentDungeonsFormatted.push(dungeonData);
   }
 
-  const weaponDungeonsFormatted: { name: string; image: string; regionId: number; text: string }[] = [];
+  const weaponDungeonsFormatted: { name: string; regionId: number; text: string }[] = [];
 
   //insert dungeons -> dungeons.talentDungeons
   const weaponDungeons = dungeons.weaponDungeons;
@@ -156,7 +154,6 @@ async function main() {
 
     const dungeonData = {
       name: value.name,
-      image: value.image,
       regionId: regionId?.id || 0,
       text: value.text,
     };
@@ -250,25 +247,12 @@ async function main() {
       },
     });
 
-    const dungeonItem = {
-      name: fixName,
-      class: classMat,
-      rarity: rarityMat,
-      key: key,
-      image: `/items/${key}.png`,
-      day: day,
-      dungeonId: dungeon?.id || 0,
-      weaponMat: false,
-      characterMat: true,
-    };
-
     await prisma.dungeonMats.create({
       data: {
         name: fixName,
         class: classMat,
         rarity: rarityMat,
         key: key,
-        image: `/items/${key}.png`,
         day: day,
         dungeonId: dungeon?.id || 0,
         weaponMat: false,
@@ -285,7 +269,6 @@ async function main() {
       data: {
         name: value,
         key: key,
-        image: `/items/${key}.png`,
       },
     });
   }
@@ -297,7 +280,6 @@ async function main() {
     await prisma.enemyMats.create({
       data: {
         name: value.name,
-        image: `/items/${key}.png`,
         key: key,
         rarity: value.rarity,
       },
@@ -311,7 +293,6 @@ async function main() {
     await prisma.bossMats.create({
       data: {
         name: value,
-        image: `/items/${key}.png`,
         key: key,
       },
     });
@@ -325,7 +306,6 @@ async function main() {
     await prisma.weeklyBossMats.create({
       data: {
         name: value,
-        image: `/items/${key}.png`,
         key: key,
       },
     });
@@ -444,8 +424,6 @@ async function main() {
         name: value.name,
         elementId: element.id,
         weaponId: weaponType?.id || 0,
-        imageSplashArt: value.imageSplashArt,
-        imageFace: value.imageFace,
         localSpecialtyId: charLocalSpecialty?.id || 0,
         dungeonMatId: charDungeonMats?.id || 0,
         bossMatId: bossMat?.id || 0,
@@ -478,7 +456,6 @@ async function main() {
         number: 1,
         title: talents.normal.title,
         text: talents.normal.text,
-        image: talents.normal.image,
       },
     });
 
@@ -488,7 +465,6 @@ async function main() {
         number: 2,
         title: talents.skill.title,
         text: talents.skill.text,
-        image: talents.skill.image,
       },
     });
 
@@ -498,7 +474,6 @@ async function main() {
         number: 3,
         title: talents.burst.title,
         text: talents.burst.text,
-        image: talents.burst.image,
       },
     });
 
@@ -510,7 +485,6 @@ async function main() {
           number: value.number,
           title: value.title,
           text: value.text,
-          image: value.image,
         },
       });
     }
@@ -524,7 +498,6 @@ async function main() {
           characterId: characterCreated.id,
           title: value.title,
           text: value.text,
-          image: value.image,
         },
       });
     }

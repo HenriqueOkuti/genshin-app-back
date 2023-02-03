@@ -22,7 +22,6 @@ export async function cleanDb() {
   await prisma.session.deleteMany({});
   await prisma.taskInfo.deleteMany({});
   await prisma.tasks.deleteMany({});
-  await prisma.userTasks.deleteMany({});
   await prisma.backpackInfo.deleteMany({});
   await prisma.userBackpack.deleteMany({});
   await prisma.gems.deleteMany({});
@@ -33,14 +32,17 @@ export async function cleanDb() {
   await prisma.dungeonMats.deleteMany({});
   await prisma.dungeons.deleteMany({});
 
+  await prisma.weeklyBossMats.deleteMany({});
+
   await prisma.region.deleteMany({});
   await prisma.localSpecialty.deleteMany({});
 
   await prisma.weapons.deleteMany({});
 
   await prisma.enemyMats.deleteMany({});
-  await prisma.themeHexes.deleteMany({});
-  await prisma.themes.deleteMany({});
+
+  await prisma.tempItems.deleteMany({});
+  await prisma.tempTransaction.deleteMany({});
 }
 
 export async function generateValidToken(user?: Users) {

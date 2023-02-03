@@ -51,6 +51,7 @@ export async function updateUserCharacter(req: Request, res: Response) {
       return res.sendStatus(httpStatus.BAD_REQUEST);
     }
 
+    console.log(error);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

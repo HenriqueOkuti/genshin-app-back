@@ -8,7 +8,9 @@
     "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch --passWithNoTests --runInBand",
     "dev:load-envs": "dotenv -e .env.development",
-    "seed": "npm run dev:load-envs prisma db seed"
+    "dev:migrate": "NODE_ENV=development prisma migrate dev && npm run dev:seed",
+    "dev:seed": "npm run seed && npm run dev",
+    "seed": "prisma db seed"
   },
   "keywords": [],
   "author": "",

@@ -48,8 +48,6 @@ export async function putUserTasks(req: Request, res: Response) {
     if (error.name === 'ConflictError') {
       return res.sendStatus(httpStatus.UNAUTHORIZED);
     }
-
-    console.log(error);
     return res.sendStatus(httpStatus.INTERNAL_SERVER_ERROR);
   }
 }

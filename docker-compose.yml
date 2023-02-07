@@ -5,9 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    #command: nodemon --legacy-watch index.js
+    command: nodemon --legacy-watch index.js
     ports:
-      - 5009:4000
+      - 8400:8400
     depends_on:
       - database
     volumes:

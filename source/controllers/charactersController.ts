@@ -6,7 +6,6 @@ export async function getUserCharacters(req: Request, res: Response) {
   const { userId } = res.locals;
   try {
     let message = null;
-    //  find user characters
     const listCharacters = await charactersService.handleFetchCharacters(+userId);
     if (listCharacters.length === 0) {
       message = 'empty list';
@@ -42,7 +41,6 @@ export async function updateUserCharacter(req: Request, res: Response) {
   const userCharacter = req.body as updateRequest;
 
   try {
-    //
     const updatedChar = await charactersService.handleUpdateCharacters(+userId, userCharacter);
 
     return res.sendStatus(httpStatus.OK);
@@ -77,8 +75,6 @@ export async function deleteUserCharacter(req: Request, res: Response) {
 
 export async function getAllCharacters(req: Request, res: Response) {
   try {
-    //
-    //
     const characters = await charactersService.handleFetchAll();
 
     return res.status(httpStatus.OK).send({ message: null, characters: characters });
@@ -89,8 +85,6 @@ export async function getAllCharacters(req: Request, res: Response) {
 
 export async function getWeapons(req: Request, res: Response) {
   try {
-    //
-    //
     const weapons = await charactersService.handleFetchWeapons();
 
     return res.status(httpStatus.OK).send({ message: null, weapons: weapons });
@@ -101,8 +95,6 @@ export async function getWeapons(req: Request, res: Response) {
 
 export async function getElements(req: Request, res: Response) {
   try {
-    //
-    //
     const elements = await charactersService.handleFetchElements();
 
     return res.status(httpStatus.OK).send({ message: null, elements: elements });

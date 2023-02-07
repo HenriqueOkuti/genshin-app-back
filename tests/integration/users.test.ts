@@ -1,10 +1,8 @@
 import app, { init } from '../../source/app';
 import faker from '@faker-js/faker';
-import bcrypt from 'bcrypt';
 import httpStatus from 'http-status';
 import supertest from 'supertest';
 import { cleanDb, generateSession, generateUser, generateValidToken } from '../helpers';
-import { createSession, createUser, findToken } from '../factories/authentication.factory';
 
 beforeAll(async () => {
   await init();
@@ -153,9 +151,6 @@ describe('PUT /users/info', () => {
         expect(response.status).toBe(httpStatus.OK);
         expect(response.body).toEqual({ id: newUser.id, name: body.name, image: body.image });
       });
-      //
     });
-
-    //
   });
 });

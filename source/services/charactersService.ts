@@ -1,9 +1,8 @@
-import { charactersErrors, usersErrors } from '@/errors';
+import { charactersErrors } from '@/errors';
 import { charactersRepository, FixedCharacterType } from '@/repositories';
-import { CharacterAscensions, CharacterConstellations, CharacterTalents } from '@prisma/client';
+import { CharacterConstellations, CharacterTalents } from '@prisma/client';
 
 async function handleFetchCharacters(userId: number) {
-  //search and return
   const characters = await charactersRepository.userCharacters(userId);
 
   const fixedCharacters: FixedCharacterType[] = [];
@@ -25,7 +24,6 @@ export type postRequest = {
 };
 
 async function handleCreateCharacters(userId: number, newCharacter: postRequest) {
-  //console.log(userId, newCharacter);
   const characterExists = await charactersRepository.findCharacter(newCharacter.characterId);
   if (!characterExists) {
     throw charactersErrors.characterNotFoundError();
@@ -37,7 +35,6 @@ async function handleCreateCharacters(userId: number, newCharacter: postRequest)
     throw charactersErrors.characterAlreadyCreatedError();
   }
 
-  //handle create character
   const createdCharacter = await charactersRepository.createUserCharacter(userId, newCharacter, characterExists);
 
   return createdCharacter;
@@ -64,16 +61,13 @@ async function handleUpdateCharacters(userId: number, userCharacter: updateReque
     throw charactersErrors.notFoundError();
   }
 
-  //update values
   const updatedChar = await charactersRepository.updateUserCharacter(userId, userCharacter, currentUserCharacter);
   return updatedChar;
 }
 
 async function handleDeleteCharacters(userId: number, userCharacterId: number) {
-  //find userCharacter
-  //console.log('service');
   const userCharacter = await charactersRepository.findUserCharacterViaID(userCharacterId, userId);
-  //console.log(userCharacter);
+
   if (!userCharacter) {
     throw charactersErrors.notFoundError();
   }

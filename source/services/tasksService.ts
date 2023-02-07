@@ -2,7 +2,6 @@ import { tasksErrors } from '@/errors';
 import { fixedTasksType, itemsRepository, modifiedTaskBody, newTaskBody, tasksRepository } from '@/repositories';
 
 async function handleFetchUserTasks(userId: number) {
-  //search and return
   const fixedTasks: fixedTasksType = await tasksRepository.findUserTasks(userId);
   const tasksWithItemInfo = [];
   for (let i = 0; i < fixedTasks.length; i++) {
@@ -30,7 +29,6 @@ async function handleFetchUserTasks(userId: number) {
         itemInfo = await itemsRepository.getLocalSpecialtyInfo(item.itemId);
       }
       newItems.push({ ...item, itemInfo: itemInfo });
-      //
     }
 
     const updatedTask = { ...task, items: newItems };
@@ -46,7 +44,6 @@ async function handleInsertUserTask(userId: number, newTask: newTaskBody) {
   if (inserted) {
     return true;
   } else {
-    //replace with throw error
     return false;
   }
 }

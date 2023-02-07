@@ -1,5 +1,3 @@
-//import { Login, LoginGithub, LoginGoogle, SignUp } from '@/controllers/authenticationController';
-import { getUserInfo } from '@/controllers';
 import {
   deleteUserCharacter,
   getAllCharacters,

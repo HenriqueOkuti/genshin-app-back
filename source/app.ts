@@ -9,6 +9,8 @@ import { authenticationRouter, charactersRouter, itemsRouter, tasksRouter, users
 console.clear();
 loadEnv();
 
+console.log('Server is working!');
+
 const app = express();
 app
   .use(cors())

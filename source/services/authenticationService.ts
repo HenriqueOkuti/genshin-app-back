@@ -53,6 +53,26 @@ async function handleGithub(name: string, email: string) {
   }
 }
 
+export type googleData = {
+  name: string;
+  email: string;
+  image: string;
+};
+
+async function handleGoogle(userData: googleData) {
+  const userInfo = await authRepository.findEmail(userData.email);
+  if (userInfo) {
+    const session = await authRepository.newSession(userInfo.id);
+    return session.token;
+  } else {
+    const randomPassword = generatePassword();
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+    const newUser = await authRepository.createUser(userData.email, hashedPassword, userData.name);
+    const session = await authRepository.newSession(newUser.id);
+    return session.token;
+  }
+}
+
 function generatePassword() {
   let password = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -67,6 +87,7 @@ const authService = {
   handleSignUp,
   handleLogin,
   handleGithub,
+  handleGoogle,
 };
 
 export { authService };

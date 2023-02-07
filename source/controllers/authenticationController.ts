@@ -2,7 +2,6 @@ import { authService, googleData } from '@/services';
 import axios from 'axios';
 import { Request, Response } from 'express';
 import httpStatus from 'http-status';
-import bcrypt from 'bcrypt';
 
 export async function SignUp(req: Request, res: Response) {
   try {

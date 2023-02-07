@@ -1,7 +1,5 @@
-//import { Login, LoginGithub, LoginGoogle, SignUp } from '@/controllers/authenticationController';
 import { deleteUserTasks, getUserTasks, postUserTasks, putUserTasks } from '@/controllers';
-import { validateBody, validateTaskValues, validateToken } from '@/middlewares';
-import { updateUserSchema } from '@/schemas';
+import { validateTaskValues, validateToken } from '@/middlewares';
 import { Router } from 'express';
 
 const tasksRouter = Router();
@@ -23,10 +21,3 @@ tasksRouter
   .delete('/user', (req, res, next) => validateToken(req, res, next), deleteUserTasks);
 
 export { tasksRouter };
-
-// .put(
-//     '/info',
-//     (req, res, next) => validateToken(req, res, next),
-//     (req, res, next) => validateBody(updateTaskschema, req, res, next),
-//     putUserInfo
-//   );

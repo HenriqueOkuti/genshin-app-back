@@ -1,4 +1,3 @@
-//import { Login, LoginGithub, LoginGoogle, SignUp } from '@/controllers/authenticationController';
 import { getUserInfo, putUserInfo } from '@/controllers';
 import { validateBody, validateToken } from '@/middlewares';
 import { updateUserSchema } from '@/schemas';

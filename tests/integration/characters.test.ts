@@ -71,7 +71,6 @@ describe('GET /characters/user', () => {
       expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({ message: null, characters: [userCharacter] });
     });
-    //
   });
 });
 
@@ -120,8 +119,6 @@ describe('POST /characters/user', () => {
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-
-      //
     });
 
     it('should return status 400 when passing invalid constellation inside body', async () => {
@@ -143,13 +140,12 @@ describe('POST /characters/user', () => {
           skill: 10,
           burst: 10,
         },
-        constellations: 7, //invalid parameter
+        constellations: 7,
       };
 
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid talent level inside body', async () => {
@@ -168,7 +164,7 @@ describe('POST /characters/user', () => {
         friendship: 10,
         talents: {
           normal: 10,
-          skill: 15, //invalid parameter
+          skill: 15,
           burst: 10,
         },
         constellations: 5,
@@ -177,7 +173,6 @@ describe('POST /characters/user', () => {
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid friendship level inside body', async () => {
@@ -193,7 +188,7 @@ describe('POST /characters/user', () => {
       const body = {
         characterId: character.id,
         level: 90,
-        friendship: 15, //invalid parameter
+        friendship: 15,
         talents: {
           normal: 10,
           skill: 10,
@@ -205,7 +200,6 @@ describe('POST /characters/user', () => {
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid level inside body', async () => {
@@ -220,7 +214,7 @@ describe('POST /characters/user', () => {
 
       const body = {
         characterId: character.id,
-        level: 120, //invalid parameter
+        level: 120,
         friendship: 10,
         talents: {
           normal: 10,
@@ -233,7 +227,6 @@ describe('POST /characters/user', () => {
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid combos inside body', async () => {
@@ -255,13 +248,12 @@ describe('POST /characters/user', () => {
           skill: 13,
           burst: 13,
         },
-        constellations: 0, //generates invalid talents -> max allowed is 10 for skill/burst
+        constellations: 0,
       };
 
       const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when character does not exist', async () => {
@@ -291,7 +283,6 @@ describe('POST /characters/user', () => {
     });
 
     describe('When everything is valid', () => {
-      //
       it('should return status 201 when everything is fine', async () => {
         const newUser = await generateUser();
         const token = await generateValidToken(newUser);
@@ -317,12 +308,8 @@ describe('POST /characters/user', () => {
         const response = await server.post('/characters/user').set('Authorization', headers.Authorization).send(body);
 
         expect(response.status).toBe(httpStatus.CREATED);
-        //
       });
-      //
     });
-
-    //
   });
 });
 
@@ -371,8 +358,6 @@ describe('PUT /characters/user', () => {
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-
-      //
     });
 
     it('should return status 400 when passing invalid constellation inside body', async () => {
@@ -389,20 +374,19 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: userCharacter.characterId,
-        level: 80, //parameter that should be changed (original value: 90)
+        level: 80,
         friendship: 10,
         talents: {
           normal: 10,
           skill: 10,
           burst: 10,
         },
-        constellations: 7, //invalid parameter
+        constellations: 7,
       };
 
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid talent level inside body', async () => {
@@ -419,11 +403,11 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: userCharacter.characterId,
-        level: 80, //parameter that should be changed (original value: 90)
+        level: 80,
         friendship: 10,
         talents: {
           normal: 10,
-          skill: 15, //invalid parameter
+          skill: 15,
           burst: 10,
         },
         constellations: 5,
@@ -432,7 +416,6 @@ describe('PUT /characters/user', () => {
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid friendship level inside body', async () => {
@@ -449,8 +432,8 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: userCharacter.characterId,
-        level: 80, //parameter that should be changed (original value: 90)
-        friendship: 15, //invalid parameter
+        level: 80,
+        friendship: 15,
         talents: {
           normal: 10,
           skill: 10,
@@ -462,7 +445,6 @@ describe('PUT /characters/user', () => {
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid level inside body', async () => {
@@ -479,7 +461,7 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: userCharacter.characterId,
-        level: 120, //invalid parameter
+        level: 120,
         friendship: 10,
         talents: {
           normal: 10,
@@ -492,7 +474,6 @@ describe('PUT /characters/user', () => {
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when passing invalid combos inside body', async () => {
@@ -509,20 +490,19 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: userCharacter.characterId,
-        level: 80, //parameter that should be changed (original value: 90)
+        level: 80,
         friendship: 10,
         talents: {
           normal: 10,
           skill: 13,
           burst: 13,
         },
-        constellations: 0, //generates invalid talents -> max allowed is 10 for skill/burst
+        constellations: 0,
       };
 
       const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-      //
     });
 
     it('should return status 400 when character does not exist', async () => {
@@ -539,7 +519,7 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: userCharacter.id,
         characterId: 0,
-        level: 80, //parameter that should be changed (original value: 90)
+        level: 80,
         friendship: 10,
         talents: {
           normal: 10,
@@ -568,7 +548,7 @@ describe('PUT /characters/user', () => {
       const body = {
         userCharacterId: 0,
         characterId: userCharacter.characterId,
-        level: 80, //parameter that should be changed (original value: 90)
+        level: 80,
         friendship: 10,
         talents: {
           normal: 10,
@@ -584,7 +564,6 @@ describe('PUT /characters/user', () => {
     });
 
     describe('When everything is valid', () => {
-      //
       it('should return status 200 when everything is fine', async () => {
         const newUser = await generateUser();
         const token = await generateValidToken(newUser);
@@ -599,7 +578,7 @@ describe('PUT /characters/user', () => {
         const body = {
           userCharacterId: userCharacter.id,
           characterId: userCharacter.characterId,
-          level: 80, //parameter that should be changed (original value: 90)
+          level: 80,
           friendship: 10,
           talents: {
             normal: 10,
@@ -612,12 +591,8 @@ describe('PUT /characters/user', () => {
         const response = await server.put('/characters/user').set('Authorization', headers.Authorization).send(body);
 
         expect(response.status).toBe(httpStatus.OK);
-        //
       });
-      //
     });
-
-    //
   });
 });
 
@@ -666,8 +641,6 @@ describe('DELETE /characters/user', () => {
       const response = await server.delete('/characters/user').set('Authorization', headers.Authorization).send(body);
 
       expect(response.status).toBe(httpStatus.BAD_REQUEST);
-
-      //
     });
 
     it('should return status 400 when user character does not exist', async () => {
@@ -691,7 +664,6 @@ describe('DELETE /characters/user', () => {
     });
 
     describe('When everything is valid', () => {
-      //
       it('should return status 200 when everything is fine and delete the character', async () => {
         const newUser = await generateUser();
         const token = await generateValidToken(newUser);
@@ -710,12 +682,8 @@ describe('DELETE /characters/user', () => {
         const response = await server.delete('/characters/user').set('Authorization', headers.Authorization).send(body);
 
         expect(response.status).toBe(httpStatus.OK);
-        //
       });
-      //
     });
-
-    //
   });
 });
 
@@ -739,8 +707,6 @@ describe('GET /characters/all', () => {
       const token = await generateValidToken(newUser);
       const characters = await createMultipleCharacters(2);
 
-      //console.log(characters[0]);
-
       await generateSession(newUser.id, token);
       const headers = {
         Authorization: `Bearer ${token}`,
@@ -751,6 +717,5 @@ describe('GET /characters/all', () => {
       expect(response.status).toBe(httpStatus.OK);
       expect(response.body).toEqual({ message: null, characters: characters });
     });
-    //
   });
 });

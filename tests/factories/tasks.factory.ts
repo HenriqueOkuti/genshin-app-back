@@ -21,7 +21,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //insert weekly boss mat into list
   const weeklyBossMat = await createWeeklyBossMats();
   await prisma.taskInfo.create({
     data: {
@@ -36,7 +35,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //insert boss mat into list
   const bossMat = await createBossMats();
   await prisma.taskInfo.create({
     data: {
@@ -51,7 +49,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //insert dungeon mat into list
   const region = await createRegion();
   const dungeon = await createDungeon(region.id);
   const dungeonMat = await createDungeonMats(dungeon.id);
@@ -68,7 +65,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //insert enemy mat into list
   const enemyMat = await prisma.enemyMats.create({
     data: {
       name: faker.internet.userName(),
@@ -89,7 +85,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //insert local specialty into list
   const localSpecialty = await createLocalSpecialty();
   await prisma.taskInfo.create({
     data: {
@@ -104,7 +99,6 @@ export async function createUserTask(userId: number) {
     },
   });
 
-  //fetches all items from task
   const items = await prisma.taskInfo.findMany({
     where: {
       taskId: userTask.id,
@@ -122,7 +116,6 @@ export async function createUserTask(userId: number) {
   };
 
   return taskList;
-  //
 }
 
 export type taskList = {
@@ -136,7 +129,6 @@ export type taskList = {
 };
 
 export async function createNewUserTaskBody() {
-  //insert weekly boss mat into list
   const weeklyBossMat = await createWeeklyBossMats();
   const item1 = {
     weeklyBossMat: true,
@@ -148,7 +140,6 @@ export async function createNewUserTaskBody() {
     quantity: 10,
   };
 
-  //insert boss mat into list
   const bossMat = await createBossMats();
   const item2 = {
     weeklyBossMat: false,
@@ -160,7 +151,6 @@ export async function createNewUserTaskBody() {
     quantity: 10,
   };
 
-  //insert dungeon mat into list
   const region = await createRegion();
   const dungeon = await createDungeon(region.id);
   const dungeonMat = await createDungeonMats(dungeon.id);
@@ -174,7 +164,6 @@ export async function createNewUserTaskBody() {
     quantity: 10,
   };
 
-  //insert enemy mat into list
   const enemyMat = await prisma.enemyMats.create({
     data: {
       name: faker.internet.userName(),
@@ -192,7 +181,6 @@ export async function createNewUserTaskBody() {
     quantity: 10,
   };
 
-  //insert local specialty into list
   const localSpecialty = await createLocalSpecialty();
   const item5 = {
     weeklyBossMat: false,
@@ -204,7 +192,6 @@ export async function createNewUserTaskBody() {
     quantity: 10,
   };
 
-  //fetches all items from task
   const items = [item1, item2, item3, item4, item5];
 
   const newTaskBody = {
@@ -214,11 +201,9 @@ export async function createNewUserTaskBody() {
   };
 
   return newTaskBody;
-  //
 }
 
 export async function createNewUserInvalidTaskBody() {
-  //insert weekly boss mat into list
   const weeklyBossMat = await createWeeklyBossMats();
   const item1 = {
     weeklyBossMat: true,
@@ -230,7 +215,6 @@ export async function createNewUserInvalidTaskBody() {
     quantity: 0,
   };
 
-  //insert boss mat into list
   const bossMat = await createBossMats();
   const item2 = {
     weeklyBossMat: false,
@@ -242,7 +226,6 @@ export async function createNewUserInvalidTaskBody() {
     quantity: 0,
   };
 
-  //insert dungeon mat into list
   const region = await createRegion();
   const dungeon = await createDungeon(region.id);
   const dungeonMat = await createDungeonMats(dungeon.id);
@@ -256,7 +239,6 @@ export async function createNewUserInvalidTaskBody() {
     quantity: 0,
   };
 
-  //insert enemy mat into list
   const enemyMat = await prisma.enemyMats.create({
     data: {
       name: faker.internet.userName(),
@@ -274,7 +256,6 @@ export async function createNewUserInvalidTaskBody() {
     quantity: 0,
   };
 
-  //insert local specialty into list
   const localSpecialty = await createLocalSpecialty();
   const item5 = {
     weeklyBossMat: false,
@@ -286,7 +267,6 @@ export async function createNewUserInvalidTaskBody() {
     quantity: 0,
   };
 
-  //fetches all items from task
   const items = [item1, item2, item3, item4, item5];
 
   const newTaskBody = {
@@ -296,7 +276,6 @@ export async function createNewUserInvalidTaskBody() {
   };
 
   return newTaskBody;
-  //
 }
 
 export async function invalidModifyUserTask(oldTask: taskList) {
@@ -389,7 +368,6 @@ export async function createNewTempItems() {
     rarity: weeklyBossMat.rarity,
   };
 
-  //insert boss mat into list
   const bossMat = await createBossMats();
   const item2 = {
     weeklyBossMat: false,
@@ -405,7 +383,6 @@ export async function createNewTempItems() {
     rarity: bossMat.rarity,
   };
 
-  //insert dungeon mat into list
   const region = await createRegion();
   const dungeon = await createDungeon(region.id);
   const dungeonMat = await createDungeonMats(dungeon.id);
@@ -423,7 +400,6 @@ export async function createNewTempItems() {
     rarity: dungeonMat.rarity,
   };
 
-  //insert enemy mat into list
   const enemyMat = await prisma.enemyMats.create({
     data: {
       name: faker.internet.userName(),
@@ -445,7 +421,6 @@ export async function createNewTempItems() {
     rarity: enemyMat.rarity,
   };
 
-  //insert local specialty into list
   const localSpecialty = await createLocalSpecialty();
   const item5 = {
     weeklyBossMat: false,

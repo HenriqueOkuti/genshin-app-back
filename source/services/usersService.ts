@@ -2,7 +2,6 @@ import { usersErrors } from '@/errors';
 import { usersRepository } from '@/repositories';
 
 async function handleFetchUserInfo(userId: number) {
-  //search and return
   const userInfo = await usersRepository.findUserInfo(userId);
 
   if (!userInfo) {
@@ -13,7 +12,6 @@ async function handleFetchUserInfo(userId: number) {
 }
 
 async function handleUpdateUserInfo(userId: number, newInfo: newInfoType) {
-  //find email from request
   const userDB = await usersRepository.findUserInfoViaEmail(newInfo.email);
 
   if (userDB.id !== userId) {
@@ -25,9 +23,6 @@ async function handleUpdateUserInfo(userId: number, newInfo: newInfoType) {
   }
 
   const newUserInfo = await usersRepository.updateUserInfo(userId, newInfo);
-
-  //update userInfo
-  //return userInfo
 
   return {
     id: newUserInfo.id,

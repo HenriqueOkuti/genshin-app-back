@@ -1,5 +1,5 @@
 import { prisma } from '@/config';
-import { TaskInfo, Tasks } from '@prisma/client';
+import { TaskInfo } from '@prisma/client';
 
 async function findUserTasks(userId: number) {
   const tasks = await prisma.tasks.findMany({
@@ -37,7 +37,6 @@ export type fixedTasksType = {
 }[];
 
 async function insertUserTask(userId: number, newTask: newTaskBody) {
-  //
   const task = await prisma.tasks.create({
     data: {
       name: newTask.name,
@@ -64,7 +63,6 @@ async function insertUserTask(userId: number, newTask: newTaskBody) {
     });
   }
 
-  //
   return true;
 }
 
@@ -91,7 +89,6 @@ async function findUserSpecificTask(taskId: number) {
 }
 
 async function updateUserTask(modifiedTask: modifiedTaskBody) {
-  //delete previous task items
   let taskId = 0;
 
   for (let i = 0; i < modifiedTask.items.length; i++) {
@@ -119,12 +116,9 @@ async function updateUserTask(modifiedTask: modifiedTaskBody) {
     },
   });
 
-  //console.log(something);
-  //console.log(modifiedTask);
-  //insert updated items
   for (let i = 0; i < modifiedTask.items.length; i++) {
     const item = modifiedTask.items[i];
-    //console.log(item.weeklyBossMat);
+
     await prisma.taskInfo.create({
       data: {
         weeklyBossMat: item.weeklyBossMat,

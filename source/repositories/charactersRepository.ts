@@ -1,13 +1,6 @@
 import { prisma } from '@/config';
 import { postRequest, updateRequest } from '@/services';
-import {
-  CharacterAscensions,
-  Characters,
-  UserAscensions,
-  UserCharacters,
-  UserConstellations,
-  UserTalents,
-} from '@prisma/client';
+import { Characters, UserAscensions, UserCharacters, UserConstellations, UserTalents } from '@prisma/client';
 
 async function userCharacters(userId: number) {
   return await prisma.userCharacters.findMany({
@@ -18,14 +11,12 @@ async function userCharacters(userId: number) {
 }
 
 async function fillUserCharacterDetails(userId: number, character: UserCharacters) {
-  const characterDetails = await prisma.characters.findFirst({
+  await prisma.characters.findFirst({
     where: {
       id: character.characterId,
     },
   });
-  //console.log(characterDetails);
 
-  //Annex correct Talents for 'character':
   const userTalents = await prisma.userTalents.findMany({
     where: {
       userCharacterId: character.id,
@@ -35,51 +26,11 @@ async function fillUserCharacterDetails(userId: number, character: UserCharacter
     },
   });
 
-  //Annex correct ascensions for 'character':
   const userAscensions = await prisma.userAscensions.findMany({
     where: {
       userCharacterId: character.id,
     },
   });
-
-  //    console.log();
-  //    this makes userAscensions table useless
-  //   const characterAscensions = await prisma.characterAscensions.findMany({
-  //     where: {
-  //       characterId: character.characterId,
-  //     },
-  //   });
-  //   const userAscensions: CharacterAscensions[] = [];
-  //   const characterFirstName = characterDetails.name.split(' ')[0];
-  //   if (characterFirstName === 'Traveler') {
-  //     if (character.level >= 20) {
-  //       userAscensions.push(characterAscensions[0]);
-  //     }
-  //     if (character.level >= 60) {
-  //       userAscensions.push(characterAscensions[1]);
-  //     }
-  //   } else if (characterFirstName === 'Sangonomiya') {
-  //     userAscensions.push(characterAscensions[0]);
-  //     if (character.level >= 20) {
-  //       userAscensions.push(characterAscensions[1]);
-  //     }
-  //     if (character.level >= 60) {
-  //       userAscensions.push(characterAscensions[2]);
-  //     }
-  //     userAscensions.push(characterAscensions[3]);
-  //   } else {
-  //     userAscensions.push(characterAscensions[0]);
-  //     if (character.level >= 20) {
-  //       userAscensions.push(characterAscensions[1]);
-  //     }
-  //     if (character.level >= 60) {
-  //       userAscensions.push(characterAscensions[2]);
-  //     }
-  //   }
-
-  //Annex correct constellations for 'character':
-
-  //Annex correct constellations for 'character':
 
   const userConstellations = await prisma.userConstellations.findMany({
     where: {
@@ -141,32 +92,30 @@ async function updateUserCharacter(userId: number, userCharacter: updateRequest,
       },
     });
     let numberAscensions = 0;
-    //create user character ascensions
+
     if (ascensions.length === 2) {
-      //traveler case
       numberAscensions = 0;
       if (userCharacter.level >= 20) {
-        numberAscensions++; // 0 + 1
+        numberAscensions++;
       }
       if (userCharacter.level >= 60) {
-        numberAscensions++; // 1 + 1
+        numberAscensions++;
       }
     } else if (ascensions.length === 4) {
-      //kokomi case
       numberAscensions = 2;
       if (userCharacter.level >= 20) {
-        numberAscensions++; // 2 + 1
+        numberAscensions++;
       }
       if (userCharacter.level >= 60) {
-        numberAscensions++; // 3 + 1
+        numberAscensions++;
       }
     } else {
       numberAscensions = 1;
       if (userCharacter.level >= 20) {
-        numberAscensions++; // 1 + 1
+        numberAscensions++;
       }
       if (userCharacter.level >= 60) {
-        numberAscensions++; // 2 + 1
+        numberAscensions++;
       }
     }
 
@@ -223,21 +172,18 @@ async function updateUserCharacter(userId: number, userCharacter: updateRequest,
     },
   });
 
-  // type of talent -> id of talent (string to number)
   const auxDict = {
     normal: 0,
     skill: 0,
     burst: 0,
   };
 
-  // type of talent -> user talent id (string to number)
   const auxDict2 = {
     normal: 0,
     skill: 0,
     burst: 0,
   };
 
-  // type of talent -> old talent index (string to number)
   const auxDict3 = {
     normal: 0,
     skill: 0,
@@ -325,8 +271,6 @@ async function updateUserCharacter(userId: number, userCharacter: updateRequest,
 }
 
 async function createUserCharacter(userId: number, newCharacter: postRequest, character: Characters) {
-  //
-
   const talents = await prisma.characterTalents.findMany({
     where: {
       characterId: character.id,
@@ -354,7 +298,6 @@ async function createUserCharacter(userId: number, newCharacter: postRequest, ch
     },
   });
 
-  //create user character talents
   const userCharacterValues = [newCharacter.talents.normal, newCharacter.talents.skill, newCharacter.talents.burst];
   for (let i = 0; i < talents.length; i++) {
     await prisma.userTalents.create({
@@ -369,32 +312,30 @@ async function createUserCharacter(userId: number, newCharacter: postRequest, ch
   }
 
   let numberAscensions = 0;
-  //create user character ascensions
+
   if (ascensions.length === 2) {
-    //traveler case
     numberAscensions = 0;
     if (newCharacter.level >= 20) {
-      numberAscensions++; // 0 + 1
+      numberAscensions++;
     }
     if (newCharacter.level >= 60) {
-      numberAscensions++; // 1 + 1
+      numberAscensions++;
     }
   } else if (ascensions.length === 4) {
-    //kokomi case
     numberAscensions = 2;
     if (newCharacter.level >= 20) {
-      numberAscensions++; // 2 + 1
+      numberAscensions++;
     }
     if (newCharacter.level >= 60) {
-      numberAscensions++; // 3 + 1
+      numberAscensions++;
     }
   } else {
     numberAscensions = 1;
     if (newCharacter.level >= 20) {
-      numberAscensions++; // 1 + 1
+      numberAscensions++;
     }
     if (newCharacter.level >= 60) {
-      numberAscensions++; // 2 + 1
+      numberAscensions++;
     }
   }
 
@@ -405,8 +346,6 @@ async function createUserCharacter(userId: number, newCharacter: postRequest, ch
       value: numberAscensions,
     },
   });
-
-  //create user character constellations
 
   await prisma.userConstellations.create({
     data: {

@@ -3,7 +3,6 @@ import allDungeons from './seedData/allDungeons.json';
 import allCharacters from './seedData/charactersInfo.json';
 import allRegions from './seedData/regions.json';
 import allItems from './seedData/itemsNameId.json';
-import { Console } from 'console';
 
 const prisma = new PrismaClient();
 
@@ -113,15 +112,8 @@ async function main() {
   const items = allItems;
   const regions = allRegions;
 
-  //console.log(dungeons);
-  //console.log(characters);
-  //console.log(items);
-  //console.log(regions);
-
-  //insert elements:
   await insertElements();
 
-  //insert regions:
   const regionsArray: { name: string }[] = [];
   for (const [key, value] of Object.entries(regions)) {
     regionsArray.push({ name: value });
@@ -131,7 +123,6 @@ async function main() {
 
   const talentDungeonsFormatted: { name: string; regionId: number; text: string }[] = [];
 
-  //insert dungeons -> dungeons.talentDungeons
   const talentDungeons = dungeons.talentDungeons;
   for (const [key, value] of Object.entries(talentDungeons)) {
     const regionId = await findRegionId(value.region);
@@ -147,7 +138,6 @@ async function main() {
 
   const weaponDungeonsFormatted: { name: string; regionId: number; text: string }[] = [];
 
-  //insert dungeons -> dungeons.talentDungeons
   const weaponDungeons = dungeons.weaponDungeons;
   for (const [key, value] of Object.entries(weaponDungeons)) {
     const regionId = await findRegionId(value.region);
@@ -164,32 +154,31 @@ async function main() {
   await insertDungeons(talentDungeonsFormatted);
   await insertDungeons(weaponDungeonsFormatted);
 
-  //insert dungeonMats -> items.dungeonMats
-  interface dungeonMatsGroupInterface {
+  interface DungeonMatsGroupInterface {
     2: string;
     3: string;
     4: string;
   }
 
-  const dungeonMatsGroup: dungeonMatsGroupInterface = {
+  const dungeonMatsGroup: DungeonMatsGroupInterface = {
     2: 'Teachings of ',
     3: 'Guide to ',
     4: 'Philosophies of ',
   };
 
-  interface dungeonMatsRarityInterface {
+  interface DungeonMatsRarityInterface {
     teachings: number;
     guide: number;
     philosophies: number;
   }
 
-  const dungeonMatsRarity: dungeonMatsRarityInterface = {
+  const dungeonMatsRarity: DungeonMatsRarityInterface = {
     teachings: 2,
     guide: 3,
     philosophies: 4,
   };
 
-  interface daysDictionaryInterface {
+  interface DaysDictionaryInterface {
     Freedom: string;
     Resistance: string;
     Ballad: string;
@@ -204,7 +193,7 @@ async function main() {
     Praxis: string;
   }
 
-  const daysDictionary: daysDictionaryInterface = {
+  const daysDictionary: DaysDictionaryInterface = {
     Freedom: 'monday',
     Resistance: 'tuesday',
     Ballad: 'wednesday',
@@ -219,7 +208,7 @@ async function main() {
     Praxis: 'wednesday',
   };
 
-  const locationDictionary: daysDictionaryInterface = {
+  const locationDictionary: DaysDictionaryInterface = {
     Freedom: 'Forsaken Rift',
     Resistance: 'Forsaken Rift',
     Ballad: 'Forsaken Rift',
@@ -235,15 +224,15 @@ async function main() {
   };
 
   for (const [key, value] of Object.entries(items.dungeonMats)) {
-    const rarityMat = dungeonMatsRarity[key.split('_')[0] as keyof dungeonMatsRarityInterface];
+    const rarityMat = dungeonMatsRarity[key.split('_')[0] as keyof DungeonMatsRarityInterface];
     const classMat = value;
-    const fixName = dungeonMatsGroup[rarityMat as keyof dungeonMatsGroupInterface] + value;
+    const fixName = dungeonMatsGroup[rarityMat as keyof DungeonMatsGroupInterface] + value;
 
-    const day = daysDictionary[value as keyof daysDictionaryInterface];
+    const day = daysDictionary[value as keyof DaysDictionaryInterface];
 
     const dungeon = await prisma.dungeons.findFirst({
       where: {
-        name: locationDictionary[value as keyof daysDictionaryInterface],
+        name: locationDictionary[value as keyof DaysDictionaryInterface],
       },
     });
 
@@ -261,7 +250,6 @@ async function main() {
     });
   }
 
-  //insert localSpecialty -> items.localSpecialty
   const localSpecialty = items.localSpecialty;
 
   for (const [key, value] of Object.entries(localSpecialty)) {
@@ -273,7 +261,6 @@ async function main() {
     });
   }
 
-  //insert enemyMats -> items.enemyMats
   const enemyMats = items.enemyMats;
 
   for (const [key, value] of Object.entries(enemyMats)) {
@@ -286,7 +273,6 @@ async function main() {
     });
   }
 
-  //insert bossMats -> items.bossMats
   const bossMats = items.bossMats;
 
   for (const [key, value] of Object.entries(bossMats)) {
@@ -298,8 +284,6 @@ async function main() {
     });
   }
 
-  //insert weeklyBossMats -> items.weeklyBossMats
-  //func here
   const weeklyBossMats = items.weeklyBossMats;
 
   for (const [key, value] of Object.entries(weeklyBossMats)) {
@@ -310,9 +294,6 @@ async function main() {
       },
     });
   }
-
-  //insert weapons  -> polearm, bow, catalyst, claymore, sword
-  //func here
 
   const weapons = {
     1: { name: 'Sword', image: '' },
@@ -331,17 +312,16 @@ async function main() {
     });
   }
 
-  //insert gems -> items.gems
   const gems = items.gems;
 
-  interface gemsRarityInterface {
+  interface GemsRarityInterface {
     sliver: number;
     fragment: number;
     chunk: number;
     gemstone: number;
   }
 
-  const gemsRarityObj: gemsRarityInterface = {
+  const gemsRarityObj: GemsRarityInterface = {
     sliver: 2,
     fragment: 3,
     chunk: 4,
@@ -350,7 +330,7 @@ async function main() {
 
   for (const [key, value] of Object.entries(gems)) {
     const rarityKey = key.split('_')[2];
-    const rarity = gemsRarityObj[rarityKey as keyof gemsRarityInterface];
+    const rarity = gemsRarityObj[rarityKey as keyof GemsRarityInterface];
     const element = await prisma.elements.findFirst({
       where: {
         name: value,
@@ -380,7 +360,7 @@ async function main() {
 
     const usedElem = Object.keys(value.gems)[0];
 
-    let charElement: string = '';
+    let charElement = '';
 
     if (usedElem === 'Traveler') {
       charElement = key.split('_')[1];
@@ -392,7 +372,7 @@ async function main() {
       where: {
         name: charElement,
       },
-    })) || { id: 0 }; //elementId = element.id
+    })) || { id: 0 };
 
     const charLocalSpecialty = await prisma.localSpecialty.findFirst({
       where: {
@@ -418,7 +398,6 @@ async function main() {
       },
     });
 
-    //insert characters
     const characterCreated = await prisma.characters.create({
       data: {
         name: value.name,
@@ -431,7 +410,6 @@ async function main() {
       },
     });
 
-    //insert CharacterEnemyMats
     const charEnemyMats = value.enemyMat;
 
     for (let i = 0; i < charEnemyMats.length; i++) {
@@ -449,7 +427,6 @@ async function main() {
       });
     }
 
-    //insert characterTalents
     await prisma.characterTalents.create({
       data: {
         characterId: characterCreated.id,
@@ -477,7 +454,6 @@ async function main() {
       },
     });
 
-    //insert characterConstellations
     for (const [key, value] of Object.entries(constellations)) {
       await prisma.characterConstellations.create({
         data: {
@@ -490,8 +466,7 @@ async function main() {
     }
 
     const charAscensions = value.ascensions;
-    //insert characterAscensions
-    //func here
+
     for (const [key, value] of Object.entries(charAscensions)) {
       await prisma.characterAscensions.create({
         data: {

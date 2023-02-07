@@ -54,16 +54,6 @@ export async function createMultipleCharacters(quantity: number) {
 }
 
 export async function createUserCharacter(character: Characters, userId: number) {
-  //THIS USER CHARACTER HAS:
-  //  LEVEL: 90 (MAX)
-  //  ASCENSIONS: ALL (MAX)
-  //  CONSTELLATIONS: ONE (MIN = 0 , MAX = 6)
-  //  TALENTS: LVL 1 ON ALL (MIN VALUE)
-  //  FRIENDTHIP: 10  (MAX)
-
-  //  NOTE: not the 'Traveler' (2 ascensions) or 'Kokomi' case (4 ascensions)
-
-  //CREATE USER CHARATER:
   const userCharacter = await prisma.userCharacters.create({
     data: {
       userId: userId,
@@ -73,13 +63,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     },
   });
 
-  //USER CHARACTER ALSO MUST HAVE:
-  //  TALENTS
-  //  ASCENSIONS
-  //  CONSTELLATIONS
-
-  //  CHARACTER TALENTS:
-  //    NORMAL:
   const charTalentNormal = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -89,7 +72,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     },
   });
 
-  //    SKILL:
   const charTalentSkill = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -99,7 +81,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     },
   });
 
-  //    BURST:
   const charTalentBurst = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -112,7 +93,6 @@ export async function createUserCharacter(character: Characters, userId: number)
   const characterTalents: CharacterTalents[] = [charTalentNormal, charTalentSkill, charTalentBurst];
   const userTalents: UserTalents[] = [];
 
-  //  CREATING USER TALENTS:
   for (let i = 0; i < characterTalents.length; i++) {
     userTalents.push(
       await prisma.userTalents.create({
@@ -127,10 +107,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     );
   }
 
-  //console.log(userTalents);
-
-  //  CHARACTER ASCENSIONS:
-  //    ASCENSION A0:
   const charAscension0 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -139,7 +115,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     },
   });
 
-  //    ASCENSION A1:
   const charAscension1 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -148,7 +123,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     },
   });
 
-  //    ASCENSION A4:
   const charAscension4 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -160,8 +134,6 @@ export async function createUserCharacter(character: Characters, userId: number)
   const characterAscensions: CharacterAscensions[] = [charAscension0, charAscension1, charAscension4];
   const userAscensions: UserAscensions[] = [];
 
-  //  CREATING USER ASCENSIONS:
-  //      notes:  Since level>60 -> user has all ascensions -> value = 3
   for (let i = 0; i < characterAscensions.length; i++) {
     userAscensions.push(
       await prisma.userAscensions.create({
@@ -174,7 +146,6 @@ export async function createUserCharacter(character: Characters, userId: number)
     );
   }
 
-  //  CHARACTER CONSTELLATIONS:
   const characterConstellations: CharacterConstellations[] = [];
 
   for (let i = 0; i < 5; i++) {
@@ -190,13 +161,12 @@ export async function createUserCharacter(character: Characters, userId: number)
     );
   }
 
-  //  USER CONSTELLATIONS:
   const userConstellations: UserConstellations[] = [
     await prisma.userConstellations.create({
       data: {
         userId: userCharacter.userId,
         userCharacterId: userCharacter.id,
-        value: 1, //number of constellations user has
+        value: 1,
       },
     }),
   ];
@@ -212,8 +182,6 @@ export async function createUserCharacter(character: Characters, userId: number)
 export async function createCharacterWithDetails() {
   const character = await createCharacter();
 
-  //  CHARACTER TALENTS:
-  //    NORMAL:
   const charTalentNormal = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -223,7 +191,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //    SKILL:
   const charTalentSkill = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -233,7 +200,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //    BURST:
   const charTalentBurst = await prisma.characterTalents.create({
     data: {
       characterId: character.id,
@@ -243,8 +209,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //  CHARACTER ASCENSIONS:
-  //    ASCENSION A0:
   const charAscension0 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -253,7 +217,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //    ASCENSION A1:
   const charAscension1 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -262,7 +225,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //    ASCENSION A4:
   const charAscension4 = await prisma.characterAscensions.create({
     data: {
       characterId: character.id,
@@ -271,7 +233,6 @@ export async function createCharacterWithDetails() {
     },
   });
 
-  //  CHARACTER CONSTELLATIONS:
   const characterConstellations: CharacterConstellations[] = [];
 
   for (let i = 0; i < 5; i++) {

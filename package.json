@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=development nodemon --watch 'source/' --exec 'ts-node -r tsconfig-paths/register ./source/server.ts' -e ts",
+    "dev": "NODE_ENV=development ts-node -r tsconfig-paths/register ./source/server.ts -e ts",
     "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
     "test:watch": "jest --watch --passWithNoTests --runInBand",
     "dev:load-envs": "dotenv -e .env.development",

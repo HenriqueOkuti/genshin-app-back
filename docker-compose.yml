@@ -1,26 +1,28 @@
-version: '3'
+version: "3"
 services:
-  genshin-app:
-    container_name: genshin-app
-    build:
-      context: .
-      dockerfile: Dockerfile
-    command: nodemon --legacy-watch index.js
-    ports:
-      - 8400:8400
-    depends_on:
-      - database
-    volumes:
-      - ./source:/app/source
-  database:
-    image: postgres:13
-    container_name: database
+  banco:
+    image: postgres
+    container_name: banco
     ports:
       - 2345:5432
     env_file:
       - .env
-    restart: always
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - volume_banco:/var/lib/postgresql/data
+
+  app_node:
+    build: .
+    container_name: app_node
+    ports:
+      - 5000:5000
+    env_file:
+      - .env
+    volumes:
+      - .:/usr/src
+    entrypoint: dockerize -wait tcp://banco:5432 -timeout 20s docker-entrypoint.sh
+    command: "npm run dev:migrate"
+    depends_on:
+      - banco
+
 volumes:
-  postgres:
+  volume_banco:
